@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.4}{Ejemplo de programaci\363n elementos finitos en Python.}{}% 1
+\BOOKMARK [2][-]{subsection.4.1}{Introducci\363n.}{section.4}% 2
+\BOOKMARK [2][-]{subsection.4.2}{Ejemplo}{section.4}% 3
+\BOOKMARK [2][-]{subsection.4.3}{Matriz de rigidez del modelo}{section.4}% 4
+\BOOKMARK [2][-]{subsection.4.4}{Matriz de rigidez elemental}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.5}{Matriz de rigidez de un conjunto de elementos y ensamblaje}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.6}{Condiciones de contorno}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.7}{Fuerzas}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.8}{Movimientos impuestos}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.9}{Generaci\363n de nodos}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.10}{Generaci\363n de elementos}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.11}{Generacion de fuerzas nodales con una funcion de \(x,y\) evaluada en el nodo}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.11.1}{Ejemplos de generaci\363n de elementos.}{subsection.4.11}% 13
+\BOOKMARK [1][-]{section.5}{Soluci\363n del problema de abaqus 1d}{}% 14
+\BOOKMARK [1][-]{section.6}{Ejemplos}{}% 15
+\BOOKMARK [2][-]{subsection.6.1}{Viga recta de celos\355a.}{section.6}% 16
+\BOOKMARK [2][-]{subsection.6.2}{Arco parab\363lico de celos\355a}{section.6}% 17

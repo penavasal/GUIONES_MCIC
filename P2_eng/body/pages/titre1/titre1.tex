@@ -1,0 +1,95 @@
+\section{Introduction to the steady-state diffusion problem}
+
+\subsection{The problem of steady-state flow in a porous medium}
+
+Next, as a review, we summarize the most important aspects of the
+steady-state flow problem in a porous medium of an incompressible fluid:
+\begin{itemize}
+\item The fluid flow in a porous medium takes place when there is an
+  energy difference between two points of the fluid. The flow takes
+  place from the point of higher energy (upstream) to the point of
+  less energy (downstream).
+\item The energy level of an incompressible fluid at a point for a
+  steady state is expressed by the Bernoulli's Equation, which
+  calculates the total head of a fluid $h$ at a point as the sum of
+  three components: pressure head, head of elevation and velocity
+  head:
+  \begin{equation}
+    \label{eq:0101}
+    h=h_p+h_e+h_v=p/\gamma_w+z+v^2/(2g)\approx p/\gamma_w+z
+  \end{equation}
+  being $p$ the fluid pore pressure, $\gamma_w$ its specific weight,
+  $z$ its elevation head measured with respect to a selected
+  horizontal line (the points under this line will have a negative
+  elevation head). The velicity head has been neglected considering
+  the velocity of the fluid is negligible compared to the other terms.
+\item When the fluid passes from a point A with total head $ h_A $ to
+  a point B with total head $ h_B <h_A $, there is a loss of energy
+  due to the friction to the flow offered by the soil. The hydraulic
+  gradient $ i_h $ is defined as the total head loss per unit
+  length. If the distance between A and B according to their current
+  line is $ L_{AB}$ the mean hydraulic gradient between these two
+  points is:
+  \begin{equation}
+    \label{eq:0102}
+    i_h=\frac{h_B-h_A}{L_{AB}}=\frac{(p_B/\gamma_w+z_B)-(p_A/\gamma_w+z_A)}{L_{AB}}
+  \end{equation}
+  And the hydraulic gradient at a point is:
+  \begin{equation}
+    \label{eq:0103}
+    \textbf{i}_h=\bm{\nabla}h
+  \end{equation}
+\item When the flow through the soil is laminar, Darcy's law is
+  applied (equivalent to the Fick's law for the diffusion problem
+  explained on page 5 on the presentation of the theory class by
+  making $u=h$ and $\bm{C}=\bm{K}$):
+  \begin{equation}
+    \label{eq:0104}
+    \bm{q}=-\bm{K}\cdot \bm{\nabla}h
+  \end{equation}
+  Where $\bm{q}$ is the flow vector (its units are fluid volume per
+  unit area and per unit time).
+\item The balance equation of the laminar (stationary) flow problem in
+  a porous medium of an incompressible fluid is equivalent to the
+  (stationary) Diffusion Equation described on page 9 of the
+  presentation of the theory class.
+\end{itemize}
+
+\subsection{Abaqus modeling strategy of the flow in a porous medium
+  using the thermal problem}
+
+In Abaqus the problem of fluid flow in a porous medium is within a
+coupled formulation that solves:
+\begin{itemize}
+\item The mechanical problem of soil deformation (which can be
+  considered rigid or deformable)
+\item The problem of fluid transport within the soil
+\end{itemize}
+
+Abaqus has also implemented the heat conduction problem, which
+formally has the same formulation as the problem of fluid flow in a
+porous medium (both problems are idealized with the equation in
+partial derivatives that we have called Diffusion Equation in theory
+class, see page 12). We can strategically use the Abaqus modulus of heat conduction
+to reproduce the fluid flow in a porous medium by making the following
+equivalence:
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{cll}
+    \hline
+    Parameters&Heat Conduction & Flow in porous medium\\
+    \hline
+    $h$&Temperature  &Total (hydraulic) head    \\
+    $k$&Conductivity coefficient& Permeability coefficient  \\
+    \hline
+  \end{tabular}
+  \caption{Equivalence thermal problem - flow problem in porous medium}
+  \label{tab:101}
+\end{table}
+
+Therefore, in this practice we will solve the problem of fluid
+transport in a porous medium using the Abaqus heat conduction module.
+
+
+
+\hspace{20mm}\hrulefill$\star$\hrulefill\hspace{20mm}

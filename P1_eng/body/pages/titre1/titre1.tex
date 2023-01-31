@@ -1,0 +1,1583 @@
+\section{Introduction to Numerical Analysis with Abaqus}
+
+\subsection{Motivation}
+
+\paragraph{Introduction to the Abaqus program.} Abaqus is a program
+(or suite of programs) to perform finite element analysis with two
+ways of working:
+\begin{enumerate}
+\item \textbf{Interactive:} Using the graphical user interface Abaqus/CAE (look at Fig.~\ref{figu10}).
+  \begin{itemize}
+  \item It is not necessary to learn the syntax of the program's input
+    file.
+  \item It is more laborious to change a parameter and perform a new 
+    analysis.
+  \end{itemize}
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{./body/images/imagen10}
+    \end{center}
+    \caption{Abaqus/CAE graphic interface}
+    \label{figu10}
+  \end{figure}
+\item \textbf{Keywords:} Writing a plain text input file \texttt{.inp}
+  with the commands needed to perform the analysis (look at
+  Fig.~\ref{figu09}).
+  \begin{itemize}
+  \item You must know the syntax of the program's input file.
+  \item It is very easy to modify something and perform a new
+    analysis.
+  \item Although we work in \textit{interactive} mode, at the end
+    Abaqus always generates a plain text file.
+  \end{itemize}
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{./body/images/imagen09}
+    \end{center}
+    \caption{Example .inp file}
+    \label{figu09}
+  \end{figure}
+\end{enumerate}
+
+We are going to work in this course in \textit{interactive} mode. To start The
+Abaqus/CAE graphic preprocessing program we must write \textbf{abaqus
+  cae} at the command console or click the direct link in the
+computer.  Once started, among the options the program gives us we
+choose \textbf{Create Model Database with Standard/Explicit Model} as
+indicated in Fig.~\ref{figu00}).
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{./body/images/imagen00}
+  \end{center}
+  \caption{Start of the program Abaqus}
+  \label{figu00}
+\end{figure}
+
+We have the Abaqus/CAE working environment where we can identify the
+following sections (look at Fig.~\ref{figu11}):
+\begin{itemize}
+\item \textit{Viewport:} Main part of the Abaqus/CAE screen where we
+  visualize the pre and post processing of our analysis.
+\item \textit{Model Tree View:} All the steps we follow in our model
+  (everything we define on it) are represented in this area in the
+  form of tree nodes. Each node is subdivided into several subnodes
+  with their corresponding functionalities.  If the \textit{Model
+    Tree} is not visible, make it visible by pressing
+  \textbf{View/Show Model Tree} or pressing \texttt{CTRL+T}.
+\item \textit{Toolbar Section:} Each node of the \textit{Model Tree}
+  corresponds to a toolbar where the user can access the associated
+  commands. We can access these commands also through the drop-down
+  menus of the top bar (although in this tutorial we will use the
+  graphic icons of the toolbar).
+\item \textit{Prompt region:} When we select a certain command,
+  information about the next action to be performed appears in the
+  \textit{Prompt} region.
+\end{itemize}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=1.05\textwidth]{./body/images/imagen11}
+  \end{center}
+  \caption{Abaqus/CAE working space description}
+  \label{figu11}
+\end{figure}
+
+
+
+
+\paragraph{Stages of analysis} To carry out a finite element analysis, we must perform a series of steps. Abaqus has grouped these steps into \textbf{Modules} sequentially. The functionalities associated with each module 
+\footnote{Modules with an asterisk * will not to be used in this course} is summarized now:
+\begin{description}
+\item[Module Part.] Create the geometry of the domain's elements.
+  (\textit{Parts})
+  \begin{enumerate}
+  \item Sketch the geometry   of the domain's elements.      
+  \item Create \textit{Parts} with the geometry   of the domain's elements.
+  \end{enumerate}
+  
+\item[Module Property.] Define materials and sections.
+  \begin{enumerate}
+  \item Define the properties of the materials.
+  \item Define the sections (which we associate with the materials).
+  \item Assign the sections to the corresponding \textit{Parts}.
+  \end{enumerate}
+\item[Module Assembly.] Assemble the model by creating copies (instances) of the \textit{Parts}.
+\item[Module Step.] Set the analysis procedure.
+  \begin{enumerate}
+  \item Define calculation steps
+  \item Define the type of analysis in each calculation step (thermal, mechanical, stationary, transient, \ldots)
+  \item Define the variables that the program must save to display in the post process.
+  \item Define the parameters of the numerical algorithms used in each calculation step.
+  \end{enumerate}
+\item[Module Interaction*.] Create constraints between elements of our geometry.
+\item[Module Load.] 
+Apply the boundary conditions at each step of time.
+\item[Module Mesh.] Create the mesh.
+\item[Module Optimization*.] Use finite element analysis to optimize a property of our model.
+\item[Module Job.] Create the job and launch the numerical analysis.
+\item[Module Visualization.] Perform the post-process.
+\end{description}
+ 
+
+
+\paragraph{Description of the problem to be solved.} One of the first
+things we must do before building the numerical model is to decide
+which system of units we are going to use. Abaqus does not have a
+predefined system, we simply have to work on a consistent unit
+system. In Fig.~\ref{figu01} four systems of consistent units are
+shown:
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{./body/images/imagen01}
+  \end{center}
+  \caption{Consistent unit systems}
+  \label{figu01}
+\end{figure}
+
+The problem we want to solve is summarized in Fig.~\ref{figu114}.  It
+is a beam clamped in its left end that has a tension vector
+$\mathbf{t}^*=[0,-1000,0]^T$ Pa applied to the right half of its upper
+face. The measures of the beam are 5 meters in length and a square
+section of 1 meter in side. The material is concrete with elastic
+constants $E=27$ GPa and $\nu=0.3$. As you can see, our problem can be
+reduced to a 2D problem in plane stress.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{./body/images/imagen114}
+  \end{center}
+  \caption{Description of model}
+  \label{figu114}
+\end{figure}
+
+
+
+\paragraph{Starting of the analysis with Abaqus.} Before starting to work
+let us do three things:
+\begin{enumerate}
+\item Defining a working directory in \textbf{File/Set Work Directory}
+  where all the files we generate will be saved.
+\item See help from Abaqus:
+  \begin{itemize}
+  \item If you go to \textbf{Help/On Context} we will get help on the
+    icon (command) that we click afterwards.
+  \item If you go to \textbf{Help/On Module} we will get help on the
+    module you are in at the moment.
+  \item If you go to \textbf{Help/Search and Browse Guide} we will go
+    to the main page of Abaqus help.
+  \end{itemize}
+\item We assign a name to our model. Place the cursor over the model
+  at the top of the \textit{Model Tree}, right click the mouse, select
+  \textbf{Rename} and assign it the name \textit{Mensula}. Be sure you
+  obtain something like Fig.~\ref{figu12}.
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.3\textwidth]{./body/images/imagen12}
+    \end{center}
+    \caption{Change of the model's name}
+    \label{figu12}
+  \end{figure}
+\end{enumerate}
+
+In the remaining of this chapter we will describe all the phases of
+the numerical analysis by using the example described in
+Fig.~\ref{figu114}.
+
+\newpage
+\subsection{Module Part. Create the geometry of the domain's
+  elements.}
+In Abaqus we must define the geometry of the elements that form our
+model. These elements are called \textit{parts} and will allow us to
+assemble a model by creating one or more copies (instances) of each
+\textit{part}, in case there are repeated elements.
+
+In order to define the geometry of the elements of our model:
+\begin{enumerate}
+\item We activate module \textbf{Part} and we press command
+  \textbf{Create Part} (look at Fig.~\ref{figu02}).
+
+  In the lower left corner Abaqus shows a message (Prompt) that tells
+  us what to do (in this case ``\textit{Fill out the Create Part
+    dialog}''. Press the \textbf{Cancel} button to cancel the task we
+  are doing, the \textbf{Previous} button to cancel the step we are
+  doing inside a task and return to the previous step and the
+  \textbf{Done} button to finish the task (see Fig.~\ref{figu03}).
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen02.pdf}
+    \caption{Command \textbf{Create Part}}
+    \label{figu02}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.65\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen03}
+    \caption{Message informing action}
+    \label{figu03}
+  \end{subfigure}
+  \caption{Onset of module \textit{Part} and \textit{Prompt} message
+    of information}
+\end{figure}
+
+We see now the dialog \textbf{Create Part} where we are asked if our
+model is going to be a three-dimensional, 2D planar or axisymmetric
+domain (\textbf{modeling space}), if it is going to be a deformable or
+rigid object (\textbf{Type}) and what type of geometry is
+(\textbf{Base Feature}). For our problem we will choose the options
+indicated in Fig.~\ref{figu04}.  We put a value of 10 (meters in our
+assumed unit system) in the variable \textbf{Approximate size}, which
+is double the maximum dimension of our domain. With this dimension
+Abaqus will provide us with a working environment where we can create
+the geometry.
+
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.35\textwidth]{./body/images/imagen04.pdf}
+  \end{center}
+  \caption{Dialog \textbf{Create Part}}
+  \label{figu04}
+\end{figure}
+
+\item Next we get a screen of a working environment
+  (\textit{Sketcher}) with the CAD tools needed to create the geometry
+  of our \textit{part}. Regarding the sketcher we must know:
+  \begin{itemize}
+  \item You can use the points of the working window (by clicking the
+    mouse) to define geometric entities.
+  \item Dotted lines are the X and Y axes and intersect at the origin.
+  \item The orientation of the work plane is defined with the axes at
+    the bottom left.
+  \item When you activate a drawing tool, the coordinates are drawn in
+    the upper left.
+  \end{itemize}
+
+  There are two ways to define this geometry: (a) define the geometric
+  entities precisely and (b) define them quickly using the grid and
+  then apply constraints to achieve the desired geometry. Let's work
+  the second way:
+  \begin{enumerate}
+  \item Press the \textbf{Create lines: Rectangle} button and draw a
+    rectangle without worrying about the dimensions (see
+    Fig.~\ref{figu05}).
+    \begin{figure}[!h]
+      \begin{center}
+        \includegraphics[width=0.875\textwidth]{./body/images/imagen05.pdf}
+      \end{center}
+      \caption{Initial Rectangle}
+      \label{figu05}
+    \end{figure}
+
+  \item Press the command \textbf{Add dimension}, select one of the
+    horizontal sides and modify the dimension to 5 meters (see
+    Fig.~\ref{figu06}).
+    \begin{figure}[!h]
+      \begin{center}
+        \includegraphics[width=0.875\textwidth]{./body/images/imagen06.pdf}
+      \end{center}
+      \caption{Modifying a Dimension}
+      \label{figu06}
+    \end{figure}
+
+  \item As in the previous action modifies the vertical dimension to
+    1 meter. Once done, press \textbf{Auto Fit view} to center the
+    image (it should look like in Fig.~\ref{figu07}).
+    \begin{figure}[!h]
+      \begin{center}
+        \includegraphics[width=0.875\textwidth]{./body/images/imagen07.pdf}
+      \end{center}
+      \caption{Final Rectangle}
+      \label{figu07}
+    \end{figure}
+
+  \item Finally, press cancel to quit the Sketcher tool and press
+    \textbf{Done} to generate the \textit {part} that we were looking
+    for (see Fig.~\ref{figu08}).
+    \begin{figure}[!h]
+      \begin{center}
+        \includegraphics[width=0.55\textwidth]{./body/images/imagen08}
+      \end{center}
+      \caption{Final order to create object \textit{Part}}
+      \label{figu08}
+    \end{figure}
+  \end{enumerate}
+
+
+\item If we look at the distributed loads of our model, we must divide
+  the upper edge into two halves in order to assign the loads only in
+  the right upper half as indicated in Fig.~\ref{figu114}. To do so, follow
+  these steps:
+  \begin{enumerate}
+  \item Among the icons associated with modifying a \textit{part},
+    press \textbf{Partition Edge: Enter Parameter} as shown in
+    Fig.~\ref {figu34}. Then select the upper edge of the beam
+    (Fig.~\ref{figu35}).
+    \begin{figure}[H]
+      \centering
+      \begin{subfigure}{0.29\textwidth}
+        \includegraphics[width=\textwidth]{./body/images/imagen34}
+        \caption{Activation of \textbf{Partition Edge}}
+        \label{figu34}
+      \end{subfigure}%
+      ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+      % (or a blank line to force the subfigure onto a new line)
+      \begin{subfigure}{0.59\textwidth}
+        \includegraphics[width=\textwidth]{./body/images/imagen35}
+        \caption{Selection of upper edge}
+        \label{figu35}
+      \end{subfigure}%
+      \caption{Split of upper edge}
+    \end{figure}
+  \item Then it asks for a parameter between 0 and 1 to indicate the
+    cut-off point according to the direction of the vector that is
+    seen on the screen. Since we want to divide by half, indicate 0.5
+    as indicated in Fig.~\ref{figu36}.
+    \begin{figure}[!h]
+      \begin{center}
+        \includegraphics[width=0.75\textwidth]{./body/images/imagen36}
+      \end{center}
+      \caption{Introduction of split parameter}
+      \label{figu36}
+    \end{figure}
+  \end{enumerate}
+\end{enumerate}
+Once the \textit{Part} is created, save the model with the
+\textbf{Save model database} command.
+
+\newpage
+\subsection{Module Property. Define materials and sections.}
+
+In this module we must define the materials, the sections and assign
+this information to the \textit{part} we created in the previous
+section.
+
+\begin{enumerate}
+\item \textbf{Define the material.} We choose the \textbf{Property}
+  module and click on the \textbf{Create Material} icon (see
+  Fig.~\ref{figu13}). In the window that appears to define the
+  material we give a name, include a brief description and assign the
+  constitutive mechanical behavior \textbf{Elastic} as summarized in
+  Fig.~\ref{figu14}. Finally we assign the mechanical properties of a
+  standard concrete ($ E = 27$ GPa , $ \nu = 0.3 $) as shown in
+  Fig.~\ref{figu15}.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.19\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen13.pdf}
+    \caption{Command \textbf{Create Material}}
+    \label{figu13}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.39\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen14.pdf}
+    \caption{Select type of behavior}
+    \label{figu14}
+  \end{subfigure}
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.39\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen15.pdf}
+    \caption{Definition of material parameters}
+    \label{figu15}
+  \end{subfigure}
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \caption{Definition of \textit{concrete} material}
+\end{figure}
+
+\item \textbf{Define the section.} Still within the \textbf {Property}
+  module click on the \textbf{Create Section} icon (see
+  Fig.~\ref{figu16}). In the next window (Fig.~\ref{figu17}) let's
+  assign the name \textit{sectionMensula}, the category of finite
+  element \textbf{Solid} and the type \textbf{Homogeneous}. Finally we
+  associate this section with the concrete material as indicated in
+  Fig.~\ref{figu18} (note that the default thickness of the piece is 1
+  meter, which matches our dimension).
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.19\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen16.pdf}
+      \caption{Command \textbf{Create Section}}
+      \label{figu16}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.39\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen17.pdf}
+      \caption{Definition of section properties}
+      \label{figu17}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.39\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen18.pdf}
+      \caption{Association of the material to the section}
+      \label{figu18}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \caption{Definition of section \textit{SeccionMensula}}
+  \end{figure}
+
+
+\item \textbf{Assign the section to a part.}  Finally, in this module
+  we must assign the previous section to the created \textit{part}. To
+  do so, click on the icon \textbf{Assign Section} (see
+  Fig.~\ref{figu21}) and select the region to which we want to assign
+  the section (the beam). We choose  we want to assign the section
+  \textit{SeccionMesula} (see Fig.~\ref{figu19}) and our \textit{part}
+  should have changed color as indicated in Fig.~\ref{figu20}
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.19\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen21.pdf}
+      \caption{Command \textbf{Assign Section}}
+      \label{figu21}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.29\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen19.pdf}
+      \caption{Association of the section to the Part}
+      \label{figu19}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen20.pdf}
+      \caption{Part with assigned section}
+       \label{figu20}
+    \end{subfigure}
+    \caption{Assigning the section to a \textit{Part}}
+  \end{figure}
+\end{enumerate}
+\newpage
+\subsection{Module Assembly. Assemble the model}
+Every Abaqus model is constructed as a set of copies
+(\textit{instances}) of the created \textit{parts}. Our problem is
+very simple and we just have to create a set (\textit{Assembly}) with
+a single copy of our \textit {part}. However, imagine that we would
+like to model a car, and that we have created \textit{parts} of its
+different components. With Abaqus's logic we would have created a
+\textit{part} defining a wheel, and at the time of assembling the
+final model, we would make four copies of that \textit{part} (one for
+each wheel of the car).
+
+
+In order to assembly our model follow the next steps:
+\begin{enumerate}
+\item Activate the module \textbf{Assembly} and press the
+  \textbf{Create instance} icon as shown in Fig.~\ref{figu22}.
+\item In the dialog box that appears (see Fig.~\ref{figu23}), select
+  the \textit{part} we are going to make a copy of (there is only one
+  in our problem) and indicates that the copy will be of type
+  \textbf{Dependent} (we will define the mesh in the \textit {part}
+  and it will be replicated in the copy we are creating).
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen22.pdf}
+    \caption{Command \textbf{Create instance}}
+    \label{figu22}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.42\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen23.pdf}
+    \caption{Creating a \textit{Dependent} copy}
+    \label{figu23}
+  \end{subfigure}%
+  \caption{Action \textbf{Create Instance}}
+\end{figure}
+
+In order to facilitate later operations, Abaqus allows us to group nodal points
+of geometric entities into objects called \textbf{sets}. In this way,
+when we want to obtain the results in that geometric entity we can
+request it to Abaqus without needing to know the nodes of the mesh
+that form it (only the name of the \textbf{set}). In our case we want
+to know the distribution of the nodal forces in the clamped end of the
+beam. So we are going to create a set of the future mesh nodes in this
+geometry:
+\begin{enumerate}
+\item To create a set, double-click on the \textbf{Sets} element in the \textbf{Model Tree} (see Fig.~\ref{figu24}) or press \textbf{Tools/Set/Create} (see Fig.~\ref{figu25}).
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen24.pdf}
+      \caption{\textbf{Model Tree}}
+      \label{figu24}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.40\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen25.pdf}
+      \caption{Start creation \textbf{set}}
+      \label{figu25}
+    \end{subfigure}%
+    \caption{Creation of a \textbf{set}}
+  \end{figure}
+\item Set the name \textit{LadoIzquierdo} in next window (see Fig.~\ref{figu26}) and select the left side of the beam (see Fig.~\ref{figu27}). 
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.25\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen26.pdf}
+      \caption{Assignment of the set name}
+      \label{figu26}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.28\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen27.pdf}
+      \caption{Selection of the left side}
+      \label{figu27}
+    \end{subfigure}%
+    \caption{Creation of a \textbf{set}}
+  \end{figure}
+\item Make sure that in the Model Tree a new set has been created (as shown in Fig.~\ref{figu28})
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.39\textwidth]{./body/images/imagen28.pdf}
+    \caption{\textbf{Model Tree} with two sets}
+    \label{figu28}
+  \end{figure}
+\end{enumerate}
+\newpage
+\subsection{Module Step. Configure the analysis procedure.}
+
+Once the model is built, we must define in Abaqus the calculation
+steps (\textbf{steps}) that we will use in our analysis and what
+information we want to keep from each one. Abaqus defines a
+calculation step \textit{Initial} that we will assume is the beginning
+of our analysis (everything that happens before our analysis) where, in our case, we
+will apply the boundary condition in displacements (the encastre) at
+the left side of the beam. After that, to apply the imposed tension
+vector, we will define a single calculation step and perform a static
+analysis. To define the calculation step (\textbf {Step}) do as
+follows:
+\begin{enumerate}
+\item Activate the \textbf{Step} module and click on the
+  \textbf{Create Steps} icon as shown in Fig.~\ref{figu29}. In the
+  dialog box that appears (see Fig.~\ref{figu30}) name the case as
+  \textit{Static Case} and indicates that the analysis is of
+  \textbf{Static, General} type. Set everything else as default.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.29\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen29.pdf}
+      \caption{Command \textbf{Create Steps}}
+      \label{figu29}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.40\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen30.pdf}
+      \caption{Properties of the new calculation step}
+      \label{figu30}
+    \end{subfigure}%
+    \caption{Create new calculation step}
+  \end{figure}
+\item Now let's decide what information we want to keep from the
+  calculation step created to be able to analyze it afterwards it in the
+  postprocess. Under the name \textbf{Field Output} Abaqus stores
+  solution information in the space domain at a given time. Select the
+  \textbf{Create Field Output} icon (see Fig.~\ref{figu31}) to create
+  a new result field. In the following dialog name it
+  \textit{F-Output-New} and assign it to the interval just created
+  \textit{CasoEstatico} (see Fig.~\ref{figu32}). From the fields
+  available for postprocessing, we will choose the stress tensor (S),
+  the von Mises equivalent stress (MISES), the displacements (U), the
+  reaction forces and moments (RF) and the forces and moments
+  concentrated (CF) as indicated in Fig.~\ref{figu33}.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.25\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen31.pdf}
+      \caption{Create new \textbf{Field Output}}
+      \label{figu31}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen32.pdf}
+      \caption{Associate \textbf{Field Output} to the
+        \textbf{Step}}
+      \label{figu32}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.40\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen33.pdf}
+      \caption{Definition of the \textbf{Field Output} components}
+      \label{figu33}
+    \end{subfigure}%
+    \caption{\textbf{Field Output} definition}
+  \end{figure}
+\item Under the name \textbf{History Output} Abaqus stores the
+  solution information at a spatial point during a time interval. Since we are
+  in a quasi-static problem we are not interested in the temporal
+  evolution of a variable and we are going to eliminate the one that
+  Abaqus creates by default. To do so press the right mouse button on
+  the \textbf{History Output Request} node of the \textbf{Model
+    Tree} and select \textbf{Manager} as indicated in
+  Fig.~\ref{figu41}. We will see a window with the historical variable
+  manager (see Fig.~\ref{figu42}), select the variable
+  \textbf{H-Output-1} and press \textbf{Delete}.
+
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen41.pdf}
+      \caption{Opening \textbf{History Outputs} manager}
+      \label{figu41}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen42.pdf}
+      \caption{\textbf{History Outputs} manager}
+      \label{figu42}
+    \end{subfigure}%
+    \caption{Delete of \textbf{History Outputs}}
+  \end{figure}
+\end{enumerate}
+\newpage
+\subsection{Module Load. Apply the boundary conditions}
+
+We want to apply essential boundary conditions (we
+impose null displacement in the encastre) and  natural boundary conditions (we
+impose a tension vector $ \textbf{t}^*$ in the right half of the  upper
+part of the beam).  The encastre will be applied in the calculation
+step \textit{Initial} and the tension vector in the calculation step
+\textit{CasoEstatico} previously created.
+
+In order to impose the essential boundary condition do as
+follows:
+\begin{enumerate}
+\item Activate the \textbf{Load} module and press \textbf{Create
+    Boundary Condition} (see Fig.\ref{figu37}).
+  \begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.33\textwidth]{./body/images/imagen37.pdf}
+    \caption{Command \textbf{Create Boundary Condition}}
+    \label{figu37}
+  \end{figure}
+\item In the dialog box that appears (see Fig.\ref{figu38}), put the
+  name \textit{Empotramiento} to the boundary condition, assign it to the
+  calculation step \textbf{Initial}, set the category
+  \textbf{Mechanical} and the type
+  \textbf{Symmetry/Antisymmetry/Encastre}. Select the left side where
+  we will impose the boundary condition. In the following dialog box set
+   the boundary condition is of \textbf{Encastre} (clamped) type
+  as indicated in Fig.~\ref{figu39}.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen38.pdf}
+      \caption{Creating of boundary condition}
+      \label{figu38}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen39.pdf}
+      \caption{Editing of boundary condition}
+      \label{figu39}
+    \end{subfigure}%
+    \caption{Definition of boundary condition \textit{encastre}}
+  \end{figure}
+\item Finally, the model we have created has to appear on the working
+  screen with the degrees of freedom on the left side of the beam set
+  to zero (see Fig.\ref{figu40})
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.19\textwidth]{./body/images/imagen40.pdf}
+    \caption{Detail of the encastre boundary condition}
+    \label{figu40}
+  \end{figure}
+\end{enumerate}
+
+
+In order to impose the natural boundary condition do as follows:
+\begin{enumerate}
+\item Press the \textbf{Create Load} icon as shown in
+  Fig.~\ref{figu43}. In the dialog box that appears (see
+  Fig.~\ref{figu44}) name the boundary condition as
+  \textit{CargaRepartida}, apply it in the calculation step
+  \textit{CasoEstatico}, indicating that its category is
+  \textbf{Mechanical} and the type \textbf{Surface traction}. Select
+  the right half of the upper edge of the beam as described in
+  Fig.~\ref{figu45}.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.23\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen43.pdf}
+      \caption{Command \textbf{Create Load}}
+      \label{figu43}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.30\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen44.pdf}
+      \caption{Type of load}
+      \label{figu44}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.44\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen45.pdf}
+      \caption{Selection of upper left edge}
+      \label{figu45}
+    \end{subfigure}%
+    \caption{Definition of distributed load (I)}
+  \end{figure}
+\item The following dialog box allows us to define the tension
+  vector. Set the type as \textbf{General} and a module of value 1000
+  Pa (see Fig.~\ref{figu46}). It is necessary to define the direction
+  and sense of the tension vector. Click on the blue arrow next to the
+  word \textbf{Vector} to define a vector that gives us the direction
+  and sense of the vector tension (it does not have to be unitary). It
+  can be done by pressing two vertices of our geometry or by entering
+  two pairs of coordinates. Let's do it the last way. Enter the
+  coordinates of the starting point (Fig.~\ref{figu47}, then press
+  enter) and the end point (Fig.~\ref{figu48}, then press enter).
+
+\begin{figure}[H]
+  \centering
+  \begin{varwidth}{0.40\linewidth} % this is a must
+    \begin{subfigure}{0.95\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen46.pdf}
+      \caption{Properties of tension vector}
+      \label{figu46}
+    \end{subfigure}
+  \end{varwidth}\quad%\quad
+  \begin{varwidth}{0.60\linewidth} % this is a must
+    \begin{subfigure}{0.95\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen47.pdf}
+      \caption{Start of auxiliary vector}
+      \label{figu47}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.95\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen48.pdf}
+      \caption{End of auxiliary vector}
+      \label{figu48}
+    \end{subfigure}
+  \end{varwidth}
+  \caption{Definition of distributed load (II)}
+\end{figure}
+
+\item We now see the normalized vector in the previous dialog box (see
+  Fig.~\ref{figu49}) and, in accepting the definition, the load
+  distribution scheme appears in the working window (see
+  Fig.~\ref{figu50}). Check in the \textbf{Model Tree} that the
+  associated definitions have been added to the boundary conditions nodes (BCs and Loads).
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.30\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen49.pdf}
+      \caption{Properties of tension vector}
+      \label{figu49}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.67\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen50.pdf}
+      \caption{Detail of applied load}
+      \label{figu50}
+    \end{subfigure}%
+    \caption{Definition of distributed load (III)}
+  \end{figure}
+\end{enumerate}
+
+\newpage
+\subsection{Module Mesh. Build the mesh.}
+In order to assign a mesh to a geometry we must inform Abaqus about:
+\begin{enumerate}
+\item The shape of the element (whether they are triangles or squares
+  in two-dimensional problems and whether they are tetrahedral or
+  hexahedral in three-dimensional problems).
+\item Size of the element (either a global size for the geometry or
+  by defining different sizes depending on regions).
+\item The type of element (we will explain this concept in following
+  classes).
+\end{enumerate}
+
+Abaqus distinguishes which type of mesh can be made according to the
+geometry we have (although the user can split the \textit{parts}
+manually to create more regular geometries). Each possible type of
+mesh in each region is identified with a color:
+
+\begin{description}
+\item[Green] Meshes can be generated using structured methods
+\item[Yellow] Meshes can be generated with the sweep method
+\item[Pink] Meshes can be generated with the free method
+\item[Cinnamon]Meshes can be generated with the button-up method
+\item[Orange] You can not generate meshes and the geometry has to be
+  divided
+\end{description}
+
+But in our case it happens that the geometry is blue. This is because we
+have made a dependent copy on the \textit{part} and is the part the
+one that we have to mesh (then the mesh is replicated in the
+copy). Activate the \textbf{Mesh} module and change the \textit{part}
+as the object to mesh as indicated in Fig.~\ref{figu51} and it will
+change to pink.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.95\textwidth]{./body/images/imagen51.pdf}
+  \caption{Start of Mesh module}
+  \label{figu51}
+\end{figure}
+
+To define the mesh, follow these steps:
+\begin{enumerate}
+\item First we will define the shape of the elements. Press
+  \textbf{Mesh/Controls} in the upper menu bar and the dialog box in
+  Fig.~\ref{figu52} appears. Let's set that we want to use
+  \textbf{quadrilaterals},  the technique is \textbf{Free} and
+   the algorithm is \textbf{Advancing front}.
+  \begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{./body/images/imagen52.pdf}
+    \caption{Definition of the element shape}
+    \label{figu52}
+  \end{figure}
+\item Let us now define the size of the elements. Press the
+  \textbf{Seed part} icon (see Fig.~ \ref{figu53}) to assign a global
+  size to the elements of the geometry. Let us use a size of 0.2 m as
+  shown in Fig.~\ref{figu54} and press the \textbf{Apply} button. We
+  should see a division of the boundary of our geometry using the size
+  we have indicated (see Fig.~\ref{figu55}). Finally press OK.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.15\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen53.pdf}
+      \caption{Start of command \textbf{Seed part}}
+      \label{figu53}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen54.pdf}
+      \caption{Global element size assignment}
+      \label{figu54}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen55}
+      \caption{Detail division of the contour for the mesh}
+      \label{figu55}
+    \end{subfigure}%
+    \caption{Mesh size assignment}
+  \end{figure}
+\item Now let's define the type of element by pressing the
+  \textbf{Assign Element Type} icon (see Fig.~\ref{figu56}). It will
+  ask us to select the \textit{Part} to which we will assign the type
+  of element. When selecting it, it must change color as shown in
+  Fig.~\ref{figu57}. Finally a dialog box appears with the available
+  element types. As shown in Fig.~\ref{figu58} we will select
+  \textbf{Standard}, \textbf{Standard}, \textbf{Quadratic},
+  \textbf{Plane Stress} and \textbf{Reduced Integration} (you will
+  learn in the remaining of the course what is the meaning of these
+  names).
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.15\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen56.pdf}
+      \caption{Start of command \textbf{Assign Element Type}}
+      \label{figu56}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen57}
+      \caption{Selection of the \textit{part}}
+      \label{figu57}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen58.pdf}
+      \caption{Characteristics of the element type}
+      \label{figu58}
+    \end{subfigure}%
+    \caption{Element type definition}
+  \end{figure}
+\item Once defined all the parameters of the mesh we only need to generate it. Click on the \textbf{Mesh Part} icon (see Fig.~\ref{figu59}) and you should get the mesh shown in Fig.~\ref{figu60}.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen59.pdf}
+      \caption{Start command \textbf{Mesh Part} }
+      \label{figu59}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.60\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen60}
+      \caption{Final mesh}
+      \label{figu60}
+    \end{subfigure}%
+    \caption{Generation of the mesh}
+  \end{figure}
+\end{enumerate}
+\newpage
+\subsection{Module Job. Create the job and launch the analysis.}
+
+At this point we must have a complete finite element model that can be
+executed. Before running the simulation in Abaqus, we need to create a
+\textbf{job} and launch it so that Abaqus understands that there is a
+finite element model ready to be simulated.
+
+To create and launch a \textbf {job} follow these steps:
+\begin{enumerate}
+\item Activate the \textbf{job} module and press the \textbf{Create
+    job} icon (see Fig.~\ref{figu61}). Give the job's name
+  \textit{Caso01} and set that the data for the analysis must be taken
+  from the Model we created and not from a data entry file
+  \texttt{.inp} (see Fig.~\ref{figu62}). You will see a dialog box to
+  define the analysis (see Fig.~\ref{figu63}). Include a description
+  and set the remaining parameters by default.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.15\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen61.pdf}
+      \caption{Command \textbf{Create job}}
+      \label{figu61}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen62.pdf}
+      \caption{Beginning of the analysis}
+      \label{figu62}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen63.pdf}
+      \caption{Analysis' parameters}
+      \label{figu63}
+    \end{subfigure}%
+    \caption{Creating a new analysis (\textbf{job})}
+  \end{figure}
+\item We see that a new job has been created in the \textbf{Model
+    Tree} (under \textit{Analysis}). To launch it, let's activate the
+  job manager by right clicking on \textbf{Jobs} and selecting
+  \textbf{Manager} (see Fig.~\ref{figu65}). We see a dialog box (see
+  Fig.~\ref{figu66}) that allows us to manage all the analyzes we have
+  (in this case we only have one, \textit{Case01}). Press
+  \textbf{Write Input} to write the file \texttt{case01.inp} to disk
+  in case you would like to use it later.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen65.pdf}
+      \caption{Launch of jobs manager}
+      \label{figu65}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen66.pdf}
+      \caption{Jobs manager}
+      \label{figu66}
+    \end{subfigure}%
+    \caption{Launch of an analysis case (I)}
+  \end{figure}
+\item Finally we can launch the analysis. We can launch it directly by
+  pressing \textbf{Submit} or we can first check that everything is
+  fine by pressing \textbf{Data Check} and then \textbf{Continue}. In
+  either case, if all goes well, you should generate at the bottom of
+  the screen the message of Fig.~\ref{figu67} and in the job manager
+  the status of the job must have changed to \textbf{Completed } (See
+  Fig.~\ref{figu68}).
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen67}
+      \caption{Message after the execution of the numerical analysis}
+      \label{figu67}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen68.pdf}
+      \caption{Jobs manager}
+      \label{figu68}
+    \end{subfigure}%
+    \caption{Launch of an analysis case (II)}
+  \end{figure}
+\end{enumerate}
+\newpage
+\subsection{Module Visualization. The post-process.}
+
+Before starting the visualization let's remember what types of
+variables we have and where they are calculated. First let's look at
+the types of variables and the information Abaqus gives about them:
+\begin{itemize}
+\item Scalar Variables (Temperature $\theta$): 1 component
+\item Vector Variables (Displacement $\mathbf{u}$): 3 components + its
+  module
+\item Tensorial variables of order 2 (stresses $\bm{\sigma}$): 6
+  components + Invariant values with respect to the coordinate system
+  (von Mises, principal values, hydrostatic pressure)
+\end{itemize}
+
+The variables displacement and temperature are calculated in the nodes
+of the mesh. The variables heat flux, strain and deformation are
+calculated at the integration points of the elements. These values
+are then extrapolated to the nodes of the elements and then smoothed
+in the nodes of the mesh (weighting the contribution of all elements
+that share the same node) as schematized in Fig.~\ref{figu69}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.99\textwidth]{./body/images/imagen69}
+  \caption{Smoothing process of the variables defined in points of
+    integration}
+  \label{figu69}
+\end{figure}
+
+To activate the post-processing of the analysis we just made click the
+right mouse button on the completed job \textit{Caso01} and select
+\textbf{Results} as indicated in Fig.~\ref{figu70}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.29\textwidth]{./body/images/imagen70.pdf}
+  \caption{Start of results postprocessing}
+  \label{figu70}
+\end{figure}
+
+Below we will describe some of the most common actions that are
+performed in the postprocess of results:
+\begin{enumerate}
+\item \textbf{Draw the deformed mesh}. ~
+
+  With the \textbf{Visualization} module activated, click on the
+  \textbf{Plot Deformed Shape} icon (see Fig.~\ref{figu71}) to get the
+  deformed shape. You will get the deformed shape shown in
+  Fig.~\ref{figu72} where the displacements have been multiplied by
+  a scale factor of 1633e4.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.25\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen71.pdf}
+      \caption{Command \textbf{Plot Deformed Shape}}
+      \label{figu71}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.59\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen72}
+      \caption{Deformed shape (automatic scaling factor)}
+      \label{figu72}
+    \end{subfigure}%
+    \caption{Representation of the deformed form (I)}
+  \end{figure}
+
+  To use a non-automatic scaling factor, press the \textbf{Common
+    Options} icon (see Fig.~\ref{figu75}). You will see the dialog box
+  in Fig.~\ref{figu73} where you need to change the
+  \textbf{Deformation Scale Factor} to \textbf{Uniform} and set a
+  value of 10000. At the end you will get the deformed shape shown in
+  Fig.~\ref{figu74}.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.19\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen75.pdf}
+      \caption{Command \textbf{Common Options}}
+      \label{figu75}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.30\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen73.pdf}
+      \caption{Postprocess options}
+      \label{figu73}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen74}
+      \caption{Deformed shape (scaling factor 10000)}
+      \label{figu74}
+    \end{subfigure}%
+    \caption{Representation of the deformed form (II)}
+  \end{figure}
+\item \textbf{Obtain the distribution of a scalar field (a scalar variable
+    or a component of a vector or tensor variable) in the geometry} ~
+
+  Click the \textbf{Plot Contours on Deformed Shape} icon or
+  \textbf{Plot Contours on Undeformed Shape} (see
+  Fig.~\ref{figu76}). It will appear a field distribution of
+  the solution as shown in Fig.~\ref{figu77} (in this case is the
+  component $\sigma_ {xx}$ of the stress tensor). To change which
+  variable you want to display, select the variable you want to draw
+  from the drop-down menus in the upper toolbar (see
+  Fig.~\ref{figu78}).
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.19\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen76.pdf}
+      \caption{Command \textbf{Plot Contours on Deformed Shape}}
+      \label{figu76}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.44\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen77}
+      \caption{Deformed shape with the field $\sigma_{xx}$}
+      \label{figu77}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen78.pdf}
+      \caption{Selection of the component of a result}
+      \label{figu78}
+    \end{subfigure}%
+    \caption{Distribution of a scalar field in geometry (I)}
+  \end{figure}
+
+  We can modify how these fields of the solution are presented. Press
+  the \textbf{Contour Options} icon (see Fig.~\ref{figu79}) and in the
+  following dialog box select the contour type \textbf{Line} and the
+  contour intervals \textbf{Discrete} equal to 20 such as shown in
+  Fig.~\ref{figu80}. You will have to obtain (for the variable you are
+  painting) a distribution similar to that shown in
+  Fig.~\ref{figu81}. Finally you can save a graphic file with the data
+  of the working screen by pressing \textbf{File/Print} to save a file
+  \texttt {.pdf}, or press \texttt{CTRL + C} to save the image to your
+  clipboard.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.19\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen79.pdf}
+      \caption{Command \textbf{Contour Options}}
+      \label{figu79}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen80.pdf}
+      \caption{Properties of \textbf{Contour Plot}}
+      \label{figu80}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.44\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen81}
+      \caption{Representation of a field using lines of isovalues}
+      \label{figu81}
+    \end{subfigure}%
+    \caption{Distribution of a scalar field in geometry (II)}
+  \end{figure}
+
+\item \textbf{Draw vectors or principal components of tensors in
+    the domain} ~
+
+  Click the \textbf{Plot Symbols on Deformed Shape} icon or
+  \textbf{Plot Symbols on Undeformed Shape} (see
+  Fig.~\ref{figu82}). You will see a distribution of vectors as shown
+  in Fig.~\ref{figu83} (in this case it is the distribution of the
+  principal components of the stress tensor at the integration points
+  of the elements.
+
+  \begin{figure}[H]
+    \begin{subfigure}{0.29\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen82.pdf}
+      \caption{Command \textbf{Plot Symbols on Deformed Shape}}
+      \label{figu82}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.55\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen83}
+      \caption{Representation using vectors}
+      \label{figu83}
+    \end{subfigure}%
+    \caption{Distribution using vectors of a vectorial/tensorial
+      magnitude (I)}
+  \end{figure}
+
+  We can modify the format of the vectors. In our case it would be
+  useful to reduce the size a bit so that they can be  better seen. To
+  do so press the \textbf{Symbol Options} icon (see Fig.~\ref{figu84})
+  and in the next dialog box (see Fig.~\ref{figu85}) change the size
+  to 2. You should get a distribution similar to that shown in
+  Fig.~\ref{figu86}.
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.19\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen84}
+      \caption{Command \textbf{Symbol Options}}
+      \label{figu84}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen85}
+      \caption{Representation using vectors options}
+      \label{figu85}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.44\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen86}
+      \caption{Representation using vectors}
+      \label{figu86}
+    \end{subfigure}%
+    \caption{Distribution using vectors of a vectorial/tensorial
+      magnitude (II)}
+  \end{figure}
+
+\item \textbf{Get values in nodes or elements}
+
+
+  There are times when we are interested in knowing solution values in
+  specific elements or nodes. Let's first obtain the solution in
+  elements. To do so, we must activate first the \textbf{Plot
+    Contour} with the field that we want to know. Draw, as in
+  Fig.~\ref{figu87}, the field of the $\sigma_{xx}$ component of the
+  stress tensor. Then press \textbf{Tools/Query} (see
+  Fig.~\ref{figu88}) and select \textbf{Probe values} (see
+  Fig.~\ref{figu89})
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen87.pdf}
+      \caption{Representation of a \textbf{Contour Plot}}
+      \label{figu87}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.29\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen88.pdf}
+      \caption{Command \textbf{Tools/Query\ldots}}
+      \label{figu88}
+    \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    % (or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}{0.32\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen89.pdf}
+      \caption{Information we can get from the model}
+      \label{figu89}
+    \end{subfigure}%
+    \caption{Obtaining values in elements (I)}
+  \end{figure}
+
+  A dialog box appears where we will indicate that we want to extract
+  values from the \textbf {Elements} (which we select from the viewport),  we want \textbf{All
+    Directions} from the field selected and we want the values at the \textbf{Integration
+    Points} as shown in Fig.~\ref{figu90}. We select one by one the
+  elements that are in contact with the left edge of the beam (see
+  Fig.~\ref{figu91})
+
+
+ \begin{figure}[H]
+   \centering
+   \begin{subfigure}{0.45\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen90.pdf}
+     \caption{Definition of places where information is extracted}
+     \label{figu90}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.49\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen91.pdf}
+     \caption{Selection of elements}
+     \label{figu91}
+   \end{subfigure}%
+   \caption{Obtaining values in elements (II)}
+ \end{figure}
+
+ Once we have selected the elements we press \textbf{Write to File}
+ (see Fig.~\ref{figu92}) and write the results in a file
+ \texttt{tensiones.rpt} (see Fig.~\ref{figu93}). If we open the file
+ \texttt{tensiones.rpt} with a text program, we can see how we have
+ stored the values of the components of the stress tensor in the four
+ integration points of each of the selected elements (see
+ Fig.~\ref{figu94}).
+
+
+ \begin{figure}[H]
+   \centering
+   \begin{subfigure}{0.32\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen92.pdf}
+     \caption{Selected elements}
+     \label{figu92}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.32\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen93.pdf}
+     \caption{Definition of the file where to save the data}
+     \label{figu93}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.35\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen94}
+     \caption{Text-mode information for a variable in the selected
+       elements}
+     \label{figu94}
+   \end{subfigure}%
+   \caption{Obtaining values in elements (III)}
+ \end{figure}
+
+ We will now get the solution on nodes. Just as before we activated
+ the \textbf{Plot Contour} with the field that we want to know
+ about. In this case draw, as in Fig.~\ref{figu95}, the field of the component
+ $R_{x}$ of the reaction forces. Remember that in order to activate
+ the \textbf {Probe Values} dialog box, you must press
+ \textbf{tools/Query} (see Fig.~\ref{figu88}) and select \textbf{Probe
+   values} (see Fig.~\ref{figu89}). Now, set that we want to get the
+ solution in \textbf{Nodes} and that we want all the
+ components. Finally, select all the left edge nodes (see Fig.~
+ \ref{figu96}). Once selected click \textbf{Write to File} and save
+ the data to a file called \textbf{Reactions}. Finally open the file
+ and check that the values of the reactions have been stored in the
+ selected nodes (see Fig.~\ref{figu97}).
+ \begin{figure}[H]
+   \centering
+   \begin{subfigure}{0.30\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen95.pdf}
+     \caption{Representation of a \textbf{Contour Plot}}
+     \label{figu95}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.30\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen96.pdf}
+     \caption{Selection of nodes}
+     \label{figu96}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.39\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen97}
+     \caption{Text-mode information of a variable on selected nodes}
+     \label{figu97}
+   \end{subfigure}%
+   \caption{Obtaining values in nodes (I)}
+ \end{figure}
+
+
+
+ 
+\item \textbf{Get curves} ~
+
+  Finally we will draw the distribution of a solution variable
+  following a path in the geometry. To do so, we first have to define
+  a \textbf{Path} inside the model and then obtain an X-Y curve in
+  which the abscissa X is the distance of a point following the path
+  and the ordinate Y is the value of the variable in that point.
+
+  Draw again the field of the $R_{x}$ component of the reaction forces
+  (see Fig.~\ref{figu98}) and press \textbf {Tools/Path/Create} (see
+  Fig.~\ref{figu99}). In the following dialog box, assign the name
+  \textit{path-empotramiento} to the \textbf{path} and indicate that
+  it is a \textbf{Node list} as shown in Fig.~\ref{figu100}.
+
+ \begin{figure}[H]
+   \centering
+   \begin{subfigure}{0.30\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen98}
+     \caption{Representation of a \textbf{Contour Plot}}
+     \label{figu98}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.30\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen99.pdf}
+     \caption{Command \textbf{Path/Create\ldots}}
+     \label{figu99}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.39\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen100.pdf}
+     \caption{Name and type definition of the \textbf{Path}}
+     \label{figu100}
+   \end{subfigure}%
+   \caption{Definition of a \textbf{Path} (I)}
+ \end{figure}
+
+ In the next dialog, we must start assigning the nodes. Select
+ \textbf{Add After} (although in this case it would be the same as
+ \textbf {Add Before} because we do not have a previous selection) as
+ indicated in Fig.~\ref{figu101}. Mark the start point (upper end of
+ the left side) and the end point (lower end of the left side) to define the
+ path (see Fig.~\ref{figu102}). Finally you should get the dialog box
+ in Fig.~\ref{figu103}.
+
+ \begin{figure}[H]
+   \centering
+   \begin{subfigure}{0.30\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen101.pdf}
+     \caption{Path node definition (I)}
+     \label{figu101}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.30\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen102}
+     \caption{Path node definition (II)}
+     \label{figu102}
+   \end{subfigure}%
+   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+   % (or a blank line to force the subfigure onto a new line)
+   \begin{subfigure}{0.39\textwidth}
+     \includegraphics[width=\textwidth]{./body/images/imagen103.pdf}
+     \caption{Path node definition (III)}
+     \label{figu103}
+   \end{subfigure}%
+   \caption{Definition of a \textbf{Path} (II)}
+ \end{figure}
+
+ Once created the \textbf {path} we can define the X-Y graph. Press
+ \textbf{Tools/XY Data/Create} as shown in Fig.~\ref{figu104} and set
+ that the source for the abscissa will be a \textbf{Path} (see
+ Fig.~\ref{figu105}). In the next dialog, set that
+ the path is the one we created previously \textit{Path-embedded},
+  we will follow the deformed shape of the path
+ (\textbf{Deformed}), we want to include the intersections between
+ path and elements and that the value of the abscissa is the true
+ distance following the path (check at Fig.~\ref{figu106}). In order
+ to select the variable we want to draw, press \textbf{Field
+   Output variable} (see Fig.~\ref{figu106}).
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.30\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen104.pdf}
+    \caption{Command \textbf{Tools/XY DAta/Create} }
+    \label{figu104}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.30\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen105.pdf}
+    \caption{Origin of the data}
+    \label{figu105}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.39\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen106.pdf}
+    \caption{Characteristics of the X-Y Chart}
+    \label{figu106}
+  \end{subfigure}%
+  \caption{X-Y curve definition (I)}
+\end{figure}
+
+From the options provided by the following window (see
+Fig.~\ref{figu107}) we choose the component \textbf{RF1} of the
+reaction forces at the nodes (\textbf{RF}).  Again in the dialog box
+\textbf{XY Data from Path}, press \textbf{Plot} and we must obtain the
+curve shown in Fig.~\ref{figu108}. Finally, we press \textbf {Save
+  as\ldots} and save the graph with the name \textit{XYData-Rx} (see
+Fig.~\ref{figu109}).
+
+
+\begin{figure}[H]
+  \centering
+  \begin{varwidth}{0.45\linewidth} % this is a must
+    \begin{subfigure}{0.95\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen107.pdf}
+      \caption{Selection of the variable to draw}
+      \label{figu107}
+    \end{subfigure}
+  \end{varwidth}\quad%\quad
+  \begin{varwidth}{0.55\linewidth} % this is a must
+    \begin{subfigure}{0.99\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen108}
+      \caption{Rx values on the encastre side}
+      \label{figu108}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.75\textwidth}
+      \includegraphics[width=\textwidth]{./body/images/imagen109.pdf}
+      \caption{Name of the graph (is saved for the session only)}
+      \label{figu109}
+    \end{subfigure}
+  \end{varwidth}
+  \caption{X-Y curve definition (II)}
+\end{figure}
+
+% \begin{figure}
+%   \centering
+%   \begin{subfigure}[!h]{0.30\textwidth}
+%     \includegraphics[width=\textwidth]{./body/images/imagen107.pdf}
+%     \caption{Selección de la variable a dibujar}
+%     \label{figu107}
+%   \end{subfigure}%
+%   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%   %   (or a blank line to force the subfigure onto a new line)
+%   \begin{subfigure}[!h]{0.39\textwidth}
+%     \includegraphics[width=\textwidth]{./body/images/imagen108}
+%     \caption{Valores de Rx en el lado del empotramiento}
+%     \label{figu108}
+%   \end{subfigure}%
+%   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%   %   (or a blank line to force the subfigure onto a new line)
+%   \begin{subfigure}[!h]{0.30\textwidth}
+%     \includegraphics[width=\textwidth]{./body/images/imagen109.pdf}
+%     \caption{Nombre del gráfico (se guarda sólo para la sesión)}
+%     \label{figu109}
+%   \end{subfigure}%
+%   \caption{Definición curva X-Y (II)}
+% \end{figure}
+
+Finally we need to save the data of the curve  we have created in
+a text file so it can be used by another program. Select
+\textbf{Report/XY\ldots} (see Fig.~\ref{figu110}) and, in the
+following window select the graph that we created \textit {XYData-Rx}
+in the \textbf {XY Data} tab (See Fig.~\ref{figu111}) and the filename
+\textbf{curvas.rpt} in the \textbf {Setup} tab (see
+Fig.~\ref{figu112}). If you open the text file you should get
+something similar to the data in Fig.~\ref{figu113}.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.30\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen110.pdf}
+    \caption{Command \textbf{Report/XY \ldots}}
+    \label{figu110}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.50\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen111.pdf}
+    \caption{Writing of X-Y chart data (I)}
+    \label{figu111}
+  \end{subfigure}%
+  
+  % add desired spacing between images, e. g. ~, \quad, \qquad, \hfill
+  % etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.50\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen112.pdf}
+    \caption{Writing of X-Y chart data (II)}
+    \label{figu112}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  % (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}{0.50\textwidth}
+    \includegraphics[width=\textwidth]{./body/images/imagen113}
+    \caption{X-Y chart data in plain text format}
+    \label{figu113}
+  \end{subfigure}%
+  \caption{X-Y curve definition (III)}
+\end{figure}
+
+\end{enumerate}
+
+%\hspace{20mm}\hrulefill$\star$\hrulefill\hspace{20mm}

@@ -1,0 +1,21 @@
+\section*{Introducción}
+\addcontentsline{toc}{section}{Introduction}
+Los objetivos de esta práctica son los siguientes:
+\begin{enumerate}
+\item Realizar análisis numéricos de problemas lineales, en los que
+  hay linealidad entre la excitación y la respuesta (de forma que a
+  doble excitación, doble respuesta).
+\item Introducir el concepto de análisis numérico en varios pasos de
+  tiempo.
+\item Aprender a trabajar con ficheros de entrada de datos tipo texto
+  plano.
+\end{enumerate}
+
+La práctica consta de dos ejercicios:
+\begin{description}
+\item[Ejercicio 1.] Análisis numérico de un cilindro sometido a
+  flexión en un proceso de carga y descarga.
+\item[Ejercicio 2.] A partir del fichero de entrada de datos del
+  ejercicio anterior, reproducir el mismo ensayo pero usando los datos
+  geométricos de un fémur humano.
+\end{description}

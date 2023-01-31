@@ -1,0 +1,23 @@
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 
+\hrule 
+\contentsline {section}{\numberline {1}Objetivos de la pr\'actica}{2}{section.1}%
+\contentsline {section}{\numberline {2}Base te\'orica y discretizaci\'on con Elementos Finitos}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Ecuaciones de gobierno}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Condiciones de cortorno y fuerzas volum\'etricas}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Formulaci\'on fuerte y soluci\'on anal\IeC {\'\i }tica}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Formulaci\'on d\'ebil}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Funciones de forma}{5}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Funciones de forma elementales}{6}{subsection.2.6}%
+\contentsline {paragraph}{Observaci\'on importante.---}{8}{section*.4}%
+\contentsline {section}{\numberline {3}Simulaci\'on con Abaqus}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}M\'odulo \texttt {Part}}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}M\'odulo \texttt {Property}}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}M\'odulo \texttt {Assembly}}{13}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}M\'odulo \texttt {Step}}{13}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}M\'odulo \texttt {Load}}{14}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}M\'odulo \texttt {Mesh}}{17}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}M\'odulo \texttt {Job}}{19}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}M\'odulo \texttt {Visualization}}{20}{subsection.3.8}%
+\contentsline {section}{\numberline {4}Ejemplo de programaci\'on elementos finitos en Python}{24}{section.4}%
+\contentsline {section}{\numberline {A}Simulaci\'on con MatLab / Octave}{55}{appendix.Alph1}%

@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+\input{style/packages.tex}
+\input{style/newcommands.tex}
+% Comment utiliser : 
+% - la page de titre est à personnaliser (title/title.tex)
+% - le contenu est à rédiger dans le répertoire pages/, s'inspirer des exemples présents dans ce modèle.
+% - les annexes sont à rédiger dans le répertoire appendix/
+% - la bibliographie utilise BibTex (fichier biblio.bib)
+% - les variables suivantes sont à remplir :
+
+\newcommand{\TitreRapport}{Tema 2-3. Problemas de difusión estacionarios.}
+\newcommand{\DateRapport}{8-9 Febrero 2023}
+\newcommand{\AuteurRapport}{Grupo Mecánica Computacional}
+\newcommand{\NomEntreprise}{Máster en Ing. de Caminos, Canales y Puertos}
+
+\input{style/style.tex}
+\input{title/title.tex}
+
+\begin{document}
+\pagestyle{fancy}
+     
+\maketitle
+% \newpage \input{body/pages/remerciements.tex} \newpage
+% \input{body/pages/abstract-fr.tex} \newpage
+% \input{body/pages/abstract-en.tex} \newpage
+% \tableofcontents
+% 
+% \newpage \listoffigures \listoftables \newpage
+\input{body/pages/introduction.tex}
+\clearpage
+ \newpage
+
+% \input{body/pages/titre1/titre1.tex} \newpage
+\input{body/pages/titre1/titre1.tex} 
+\clearpage
+\newpage
+ 
+\input{body/pages/titre2/titre2.tex} 
+\clearpage
+\newpage
+
+ \input{body/pages/titre3/titre3.tex}
+\clearpage
+ \newpage
+% \input{body/pages/conclusion.tex} \newpage \bibliographystyle{unsrt}
+% \bibliography{biblio} \newpage
+% \appendix
+% \input{appendix/titreA.tex}
+
+\end{document}

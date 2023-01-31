@@ -1,0 +1,204 @@
+% macros para LaTeX2e. Jose M.ª Goicolea
+
+% Revision: 15/01/12
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jgn}%
+  [15/01/2012 Macros mecanet (J. Goicolea)]
+
+% fraccion con ``/'' de tamanho ajustable
+\newcommand{\slfrac}[2]{\left.#1\middle/#2\right.}
+% Extensiones para º, ª (Jose Goicolea, 21/11/96)
+\def\º{%
+.º}
+%  \raise1ex\hbox{\underbar{\scriptsize o}}}
+\def\ª{%
+.ª}
+%  \raise1ex\hbox{\underbar{\scriptsize a}}}
+% Macro para \boldmath (Jose Goicolea, 20/8/92)
+\def\bm#1{{\mbox{\boldmath $#1$}}}
+% otros macros para matem'aticas en castellano (Jose Goicolea, 25/11/92)
+%\def\sen{\mathop{\rm sen}\nolimits}
+%\def\arcsen{\mathop{\rm arcsen}\nolimits}
+%\def\senh{\mathop{\rm senh}\nolimits}
+\def\grad{\mathop{\rm\bf grad}\nolimits}
+\def\tr{\mathop{\rm tr}\nolimits}
+\def\rot{\mathop{\rm rot}\nolimits}
+\def\argsenh{\mathop{\rm argsenh}\nolimits}
+\def\argcosh{\mathop{\rm argcosh}\nolimits}
+\def\argtanh{\mathop{\rm argtanh}\nolimits}
+\def\eqdef{\buildrel \rm def \over =}
+\def\ddiv{\mathop{\rm div}\nolimits}
+\def\cbdot{\bm\cdot}
+\def\bddot{\bm :}
+% recuadros para f'ormulas matem'aticas (Jose Goicolea, 26/11/92)
+\def\mathbox#1{\fbox{$\displaystyle #1$}}
+% "d" <<redonda>> como s'imbolo de operador diferencial (J. Goicolea, 23/12/02)
+% para emplear basta con $$\frac{\dr f}{\dr t}$$
+% La "d" cursiva se obtendria con d a secas. 
+% (cambiado, antes por omisión con "d" a secas se obtenía el operador)
+% lo mismo para "D", con \D
+% para el número "e" se emplea \e
+\DeclareMathSymbol{\dr}{\mathalpha}{operators}{`d}
+\DeclareMathSymbol{\D}{\mathalpha}{operators}{`D}
+\DeclareMathSymbol{\e}{\mathalpha}{operators}{`e}
+%\def\d{\mathnormal{d}}
+%\def\e{\mathop{\mathrm{e}}\nolimits}
+\newcommand{\wvect}[1]{\overrightarrow{\strut #1}}
+\newcommand{\wvec}[1]{\overrightarrow{#1}}
+\newcommand{\abs}[1]{\lvert#1\lvert}
+\newcommand{\col}[1]{\{#1\}}
+\newcommand{\fil}[1]{\|#1\|}
+\def\dist{\mathop{\rm dist}\nolimits}
+
+\DeclareMathAlphabet{\mathsfb}{OT1}{cmss}{bx}{n}
+
+% macros provenientes de Barcelona (F. Navarrina) (incluidos el 27/04/94)
+%
+%------------------------------------------------------------------------------
+% macro \ngr ---> Simulacion de negritas para letras griegas minusculas
+%------------------------------------------------------------------------------
+%
+\def\ngr#1{$#1$\kern0.03em\hbox{\llap{$#1$}}\kern0.03em\hbox{\llap{$#1$}}}
+%                                                F. Navarrina / 870616
+%
+%------------------------------------------------------------------------------
+% macro \pmb ---> Simulacion de negritas para letras griegas minusculas
+%------------------------------------------------------------------------------
+%
+\def\pmb#1{\setbox0=\hbox{$#1$}%
+             \kern-.027em\copy0\kern-\wd0
+             \kern+.009em\copy0\kern-\wd0
+             \kern+.009em\copy0\kern-\wd0
+             \kern+.009em\copy0\kern-\wd0
+             \kern+.009em\copy0\kern-\wd0
+             \kern+.009em\copy0\kern-\wd0
+             \kern+.009em\copy0\kern-\wd0
+             \kern-.045em\raise+.012em\copy0\kern-\wd0
+             \kern+.009em\raise+.012em\copy0\kern-\wd0
+             \kern+.009em\raise+.012em\copy0\kern-\wd0
+             \kern+.009em\raise-.012em\copy0\kern-\wd0
+             \kern+.009em\raise-.012em\copy0\kern-\wd0
+             \kern-.018em\copy0\kern-\wd0\raise-.012em\box0}
+%                                                F. Navarrina / 890426
+
+% para dejar espacio a la derecha para figuras, en uno o mas parrafos
+% Jose Goicolea, 20/12/92
+\def\rightindent#1#2{\hangindent=-#1\hangafter=-#2}
+\def\leftindent#1#2{\hangindent=#1\hangafter=-#2}
+
+% para figuras marginales en impresion en una o dos caras
+% (ojo: puede no funcionar bien si la figura esta al final o al
+%  comienzo de pagina; 
+%  emplear \pagebreak{\samepage\mbox{}\margenfig{#1}{#2}{#3} (texto) }
+% #1: distancia a meter del margen
+% #2: numero de lineas a meter
+% #3: texto o figuras a escribir en el margen
+%%%\def\margenfig#1#2#3{\if@twoside
+%%%        \ifodd\c@page\hangindent=-#1\hangafter=-#2
+%%%        \marginpar{\leftskip=-#1{#3}}\else
+%%%        \hangindent=#1\hangafter=-#2
+%%%        \marginpar{\rightskip=-#1{#3}}\fi\else
+%%%        \hangindent=-#1\hangafter=-#2
+%%%        \marginpar{\leftskip=-#1{#3}}\fi}
+
+% dos instrucciones para unir parrafos a efectos de indentaciones marginales
+% (\jpar los hace un solo parrafo, recargando la memoria; mejor \hpar)
+%%%\def\jpar{\hfil\vadjust{\vskip\parskip}\break\indent}
+%%%\def\hpar{\edef\next{\hangafter=\the\hangafter
+%%%    \hangindent=\the\hangindent}
+%%%  \par\next
+%%%  \edef\next{\prevgraf=\the\prevgraf}
+%%%  \indent\next}
+
+% lista con enumeracion alfabetica
+\def\alfalist{\list
+      {\alph{enumi}.}{\usecounter{enumi}\def\makelabel##1{\hss\llap{##1}}} }
+\let\endalfalist=\endlist
+  
+% figura con anotaci¢n a dos columnas: 
+%       #1 contenido de la figura (p.ej. \input{fig.pic}), 
+%       #2 contenido de la anotaci¢n (p. ej. caption{.... }).
+%%%\newdimen\anchofig
+%%%\newdimen\anchocap
+%%%\def\dfig#1#2{%
+%%%  \settowidth{\anchofig}{#1}
+%%%  \anchocap=\textwidth
+%%%  \advance\anchocap by -\anchofig
+%%%  \advance\anchocap by -6mm
+%%%  \makebox[\textwidth]{
+%%%  \begin{minipage}{\anchofig}
+%%%        #1
+%%%  \end{minipage}
+%%%  \hfill
+%%%  \begin{minipage}{\anchocap}
+%%%        #2
+%%%  \end{minipage}}%
+%%%}
+
+% macro para circulos. Usa aritmetica entera (redondea todas las
+% operaciones al entero menor).
+% Emplea curvas de bezier, por lo que necesita cargar bezier.sty 
+% usando \documentstyle[bezier,...]{...}.
+% Aproxima la circunferencia mediante ocho tramos parabolicos, 
+% cada uno cubriendo un angulo de pi/4.
+% Se emplea dentro del entorno \begin{picture}...\end{picture}.
+% Uso: \circulo{radio}{X_centro}{Y_centro}{num.puntos}
+% argumentos:
+% #1 ->    radio del circulo
+% #2,#3 -> coordenadas X e Y del centro del circulo
+% #4 ->    numero de puntos de cada octavo de circulo
+%
+\newcount\zza \newcount\zzb 
+\newcount\xxa \newcount\yya 
+\newcount\xxb \newcount\yyb 
+\newcount\xxc \newcount\yyc
+\def\circulo#1#2#3#4{%
+  \zza=#1 \zzb=#1
+  \multiply\zza by 414214 \divide\zza by 1000000
+  \multiply\zzb by 707107 \divide\zzb by 1000000
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by #1 \advance\yya by 0
+  \advance\xxb by #1 \advance\yyb by \zza
+  \advance\xxc by \zzb \advance\yyc by \zzb
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by \zzb \advance\yya by \zzb
+  \advance\xxb by \zza \advance\yyb by #1
+  \advance\xxc by 0 \advance\yyc by #1
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by 0 \advance\yya by #1
+  \advance\xxb by -\zza \advance\yyb by #1
+  \advance\xxc by -\zzb \advance\yyc by \zzb
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by -\zzb \advance\yya by \zzb
+  \advance\xxb by -#1 \advance\yyb by \zza
+  \advance\xxc by -#1 \advance\yyc by 0
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by -#1 \advance\yya by 0
+  \advance\xxb by -#1 \advance\yyb by -\zza
+  \advance\xxc by -\zzb \advance\yyc by -\zzb
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by -\zzb \advance\yya by -\zzb
+  \advance\xxb by -\zza \advance\yyb by -#1
+  \advance\xxc by 0 \advance\yyc by -#1
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by 0 \advance\yya by -#1
+  \advance\xxb by \zza \advance\yyb by -#1
+  \advance\xxc by \zzb \advance\yyc by -\zzb
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+  \xxa=#2 \yya=#3 \xxb=#2 \yyb=#3 \xxc=#2 \yyc=#3
+  \advance\xxa by \zzb \advance\yya by -\zzb
+  \advance\xxb by #1 \advance\yyb by -\zza
+  \advance\xxc by #1 \advance\yyc by 0
+  \bezier{#4}(\xxa,\yya)(\xxb,\yyb)(\xxc,\yyc)
+}
+
+% \declaracion para: DEFINICION, OBSERVACIONES, PROPIEDADES, etc.
+\newcommand\declaracion{\@startsection
+ {subparagraph}{4}{\parindent}{2.75ex plus 1ex minus 
+ .2ex}{-1em}{\normalsize\sc}}

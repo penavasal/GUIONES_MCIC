@@ -1,0 +1,12 @@
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction} The goals of this practice are as follows:
+\begin{enumerate}
+\item Introduce the practical concepts associated with numerical analysis by the finite element method.
+\item Introduce the use of the finite element program Abaqus$^\circledR$ (version \textit{Interactive}) by simulating a linear problem.
+
+\end{enumerate}
+The practice consists of two sections:
+\begin{description}
+\item[Section 1.] Description of the finite element analysis procedure of a linear mechanical problem with the Abaqus$^\circledR$  program.
+\item[Section 2.] A exercise proposed to be solved by the student.
+\end{description}

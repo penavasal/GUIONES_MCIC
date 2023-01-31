@@ -1,0 +1,100 @@
+\section{Introducción al problema de difusión estacionario}
+
+\subsection{El problema de flujo estacionario en un medio poroso}
+
+A continuación, y a modo de repaso, se resumen los puntos más
+importantes del problema de flujo estacionario en un medio poroso de
+un fluido incompresible:
+\begin{itemize}
+\item El flujo de un fluido en medios porosos ocurre cuando hay una
+  diferencia de energía entre dos puntos del fluido. El flujo tiene
+  lugar desde el punto de mayor energía (aguasarriba) al punto de
+  menor energía (aguasabajo).
+\item El nivel de energía de un fluido incompresible en un punto para
+  un régimen estacionario viene representado por la Ecuación de
+  Bernoulli, que calcula la altura total o piezométrica del fluido $h$
+  en un punto como la suma de tres componentes: altura de presión,
+  altura de elevación y altura de velocidad:
+  \begin{equation}
+    \label{eq:0101}
+    h=h_p+h_e+h_v=p/\gamma_w+z+v^2/(2g)\approx p/\gamma_w+z
+  \end{equation}
+  siendo $p$ la presión de poro del fluido, $\gamma_w$ su peso
+  específico, $z$ su altura de elevación medida respecto a una línea
+  horizontal seleccionada (los puntos bajo dicha línea tendrán una
+  altura de elevación negativa), y habiéndose despreciado la altura de
+  velocidad por considerar la velocidad del fluido $v$ despreciable
+  frente a los otros términos.
+\item Cuando el fluido pasa de un punto A con altura total $h_A$ a un
+  punto B con altura total $h_B<h_A$ se produce una pérdida de energía
+  debido a la fricción al flujo que ofrece el suelo. Se define el
+  gradiente hidráulico $i_h$ como la pérdida de altura total por
+  unidad de longitud. Si la distancia entre A y B según su línea de
+  corriente es $L_{AB}$ el gradiente hidráulico medio entre esos dos
+  puntos es:
+  \begin{equation}
+    \label{eq:0102}
+    i_h=\frac{h_B-h_A}{L_{AB}}=\frac{(p_B/\gamma_w+z_B)-(p_A/\gamma_w+z_A)}{L_{AB}}
+  \end{equation}
+  y el gradiente hidráulico en un punto es:
+  \begin{equation}
+    \label{eq:0103}
+    \textbf{i}_h=\bm{\nabla}h
+  \end{equation}
+\item Cuando el flujo a través del suelo es laminar se aplica la ley
+  de Darcy (equivalente a la ley de Fick para el problema de difusión
+  explicado en la página 5 de la presentación de la clase de teoría
+  haciendo $u=h$ y $\bm{C}=\bm{K}$):
+  \begin{equation}
+    \label{eq:0104}
+    \bm{q}=-\bm{K}\cdot \bm{\nabla}h
+    \end{equation}
+    siendo $\bm{q}$ el vector flujo (sus unidades son volumen de
+    fluido por unidad de área y por unidad de tiempo).
+  \item La ecuación de balance del problema del flujo laminar
+    (estacionario) en un medio poroso de un fluido incompresible es
+    equivalente a la Ecuación de Difusión (estacionaria) descrita en
+    la página 8 de la presentación de la clase de teoría.
+  \end{itemize}
+
+\subsection{Estrategia de modelización en Abaqus del flujo en un medio
+  poroso usando el problema térmico}
+
+En Abaqus el problema de flujo de un fluido en un medio poroso está
+dentro de una formulación acoplada que resuelve:
+\begin{itemize}
+\item El problema mecánico de deformación del suelo (que podemos
+  considerarlo rígido o deformable)
+\item El problema de transporte de un fluido dentro del suelo
+\end{itemize}
+
+Abaqus también tiene implementado el problema de conducción de calor,
+que formalmente tiene la misma formulación que el problema de flujo de
+un fluido en un medio poroso (ambos problemas se idealizan con la
+ecuación en derivadas parciales que hemos llamado Ecuación de Difusión
+en clase de teoría). Estratégicamente podemos usar el módulo de Abaqus
+de conducción de calor para reproducir el flujo de un fluido en un
+medio poroso haciendo la siguiente equivalencia:
+
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{cll}
+    \hline
+    Parámetros&Conducción de Calor & Flujo medio poroso\\
+    \hline
+    $h$&Temperatura  &Altura hidráulica    \\
+    $k$&Coeficiente de conductividad & Coeficiente permeabilidad  \\
+    \hline
+  \end{tabular}
+  \caption{Equivalencia problema térmico - problema flujo en medio poroso}
+  \label{tab:101}
+\end{table}
+
+Por lo tanto, en esta práctica resolveremos el problema de transporte
+de un fluido dentro de un medio poroso usando el módulo de conducción
+de calor de Abaqus.
+
+
+
+
+\hspace{20mm}\hrulefill$\star$\hrulefill\hspace{20mm}
