@@ -1,27 +1,27 @@
 \babel@toc {spanish}{}\relax 
 \babel@toc {spanish}{}\relax 
 \hrule 
-\contentsline {section}{\numberline {1}Definici髇del problema}{2}{section.1}%
-\contentsline {section}{\numberline {2}Modelo con elementos l醡ina}{3}{section.2}%
-\contentsline {subsection}{\numberline {2.1}M骴ulo \texttt {Part}}{3}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}M骴ulo \texttt {Property}}{5}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}M骴ulo \texttt {Assembly}}{7}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}M骴ulo \texttt {Step}}{7}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}M骴ulo \texttt {Load}}{9}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}M骴ulo \texttt {Mesh}}{11}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}M骴ulo \texttt {Job}}{12}{subsection.2.7}%
+\contentsline {section}{\numberline {1}Definici贸n del problema}{2}{section.1}%
+\contentsline {section}{\numberline {2}Modelo con elementos l谩mina}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}M贸dulo \texttt {Part}}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}M贸dulo \texttt {Property}}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}M贸dulo \texttt {Assembly}}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}M贸dulo \texttt {Step}}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}M贸dulo \texttt {Load}}{9}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}M贸dulo \texttt {Mesh}}{11}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}M贸dulo \texttt {Job}}{12}{subsection.2.7}%
 \contentsline {section}{\numberline {3}Modelo con elementos de continuo}{15}{section.3}%
 \contentsline {paragraph}{\S 1.---}{15}{section*.25}%
 \contentsline {paragraph}{\S 2.---}{15}{section*.27}%
 \contentsline {paragraph}{\S 3.---}{15}{section*.29}%
 \contentsline {paragraph}{\S 4.---}{15}{section*.30}%
 \contentsline {paragraph}{\S 5.---}{17}{section*.31}%
-\contentsline {section}{\numberline {4}Generaci髇de modelos con scripts \texttt {Python}}{19}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Modelo con elementos l醡ina}{19}{subsection.4.1}%
+\contentsline {section}{\numberline {4}Generaci贸n de modelos con scripts \texttt {Python}}{19}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modelo con elementos l谩mina}{19}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Modelo con elementos de continuo}{20}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Resultados}{21}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Flecha en un nodo}{21}{subsection.5.1}%
 \contentsline {paragraph}{Paso 1.}{21}{section*.37}%
-\contentsline {subsection}{\numberline {5.2}Reacci髇en un borde}{24}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.2}Reacci贸n en un borde}{24}{subsection.5.2}%
 \vspace {1ex} \hrule 
 \contentsline {section}{\numberline {6}Ejercicio propuesto}{31}{section.6}%

@@ -1,6 +1,6 @@
 % !TEX encoding = IsoLatin
 \documentclass[spanish,a4paper,12pt]{article}
-%\usepackage[english]{babel}
+%\usepackage[spanish]{babel}
 %\usepackage{babel}
  
 \input{packages.tex}
@@ -10,23 +10,23 @@
  \hypersetup{
  colorlinks,
  breaklinks=true,backref,bookmarksnumbered=true,
- pdfauthor={J.M™ Goicolea},
- pdftitle={Pr·ctica 04 - MÈtodos Computacionales en IngenierÌa Civil}}
+ pdfauthor={J.M¬™ Goicolea},
+ pdftitle={Pr√°ctica 04 - M√©todos Computacionales en Ingenier√≠a Civil}}
  
 
 \selectspanish
 \title{\vspace*{-4ex}
 	\bf\normalsize
-	MÈtodos Computacionales en IngenierÌa Civil\\
+	M√©todos Computacionales en Ingenier√≠a Civil\\
 	\Large
-	Pr·ctica \#4, Temas 4-5.\\
-	Mec·nica de SÛlidos: BÛveda cilÌndrica\\[3ex]
+	Pr√°ctica \#4, Temas 4-5.\\
+	Mec√°nica de S√≥lidos: B√≥veda cil√≠ndrica\\[3ex]
 	\includegraphics[scale=0.50]{figs/boveda2017-5}
 	}
-\author{JosÈ M.™ Goicolea, Juan J. Arribas\\
+\author{%Jos√© M.¬™ Goicolea, Juan J. Arribas\\
         {\small\sc 
-	Grupo de Mec·nica Computacional, ETSICCP, UPM}}
-\date{23-24 de febrero de 2022}
+	Grupo de Mec√°nica Computacional, ETSICCP, UPM}}
+\date{22-23 de febrero de 2023}
 
 
 \begin{document}
@@ -40,10 +40,10 @@
 %%                                          \thechapter. \uppercase{#1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\sf Aptdo.\ \thesection. #1}{}}
 
-%\part{MÈtodos Generales de la Din·mica}
-%\contentsline{part}{MÈtodos Generales de la Din·mica}{}
-%\addcontentsline{toc}{part}{MÈtodos Generales de la Din·mica}
-%\markboth{\sl CapÌtulo 1. Principios de la Mec·nica.}{}
+%\part{M√©todos Generales de la Din√°mica}
+%\contentsline{part}{M√©todos Generales de la Din√°mica}{}
+%\addcontentsline{toc}{part}{M√©todos Generales de la Din√°mica}
+%\markboth{\sl Cap√≠tulo 1. Principios de la Mec√°nica.}{}
 
 \maketitle
 
@@ -51,59 +51,59 @@
 
 \addtocontents{toc}{\protect\hrule}
 
-\section{DefiniciÛn del problema}
+\section{Definici√≥n del problema}
 \label{sec:problema}
-Se considera una cubierta en forma de bÛveda cilÌndrica tendiendo un arco de $80^{\circ}$ (figura \ref{fig:esquema}). El material es el·stico con mÛdulo de Young $E=432\,\text{MPa}$ y coeficiente de Poisson $\nu=0$.
+Se considera una cubierta en forma de b√≥veda cil√≠ndrica tendiendo un arco de $80^{\circ}$ (figura \ref{fig:esquema}). El material es el√°stico con m√≥dulo de Young $E=432\,\text{MPa}$ y coeficiente de Poisson $\nu=0$.
 Las dimensiones son $R=25$ m, $L=50$ m, con espesor $t=0.25$ m.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.5\textwidth]{figs/boveda_scordelis-lo}
-\caption{DefiniciÛn esquem·tica de la bÛveda cilÌndrica. }
+\caption{Definici√≥n esquem√°tica de la b√≥veda cil√≠ndrica. }
 \label{fig:esquema}
 \end{figure}
 
-Los dos extremos curvos est·n simplemente apoyados sobre diafragmas rÌgidos, de forma que los desplazamientos en direcciÛn vertical y transversal est·n impedidos, mientras que el desplazamiento longitudinal es libre. 
-Los bordes laterales rectos est·n libres, sin apoyar.
-El conjunto est· sometido a su propio peso, siendo el peso especÌfico del material $\gamma=360\,\text{N/m}^{3}$.
+Los dos extremos curvos est√°n simplemente apoyados sobre diafragmas r√≠gidos, de forma que los desplazamientos en direcci√≥n vertical y transversal est√°n impedidos, mientras que el desplazamiento longitudinal es libre. 
+Los bordes laterales rectos est√°n libres, sin apoyar.
+El conjunto est√° sometido a su propio peso, siendo el peso espec√≠fico del material $\gamma=360\,\text{N/m}^{3}$.
 
 Se pide:
 \begin{enumerate}
 \item
-Resolver el problema con elementos l·mina de 4 nodos, integraciÛn reducida y 5 gdl por nodo (S4R5).
-Se tendr· en cuenta las simetrÌas existentes en la estructura, empleando una discretizaciÛn de $16\times 16$ elementos para el modelo calculado. 
+Resolver el problema con elementos l√°mina de 4 nodos, integraci√≥n reducida y 5 gdl por nodo (S4R5).
+Se tendr√° en cuenta las simetr√≠as existentes en la estructura, empleando una discretizaci√≥n de $16\times 16$ elementos para el modelo calculado. 
 \item
-Asimismo, aunque a priori no parezca la soluciÛn ideal, resolver con elementos sÛlidos con igual n˙mero de elementos en la superficie y un elemento tan solo en el espesor. 
-Se obtendr· la soluciÛn con elementos sÛlidos hexaÈdricos de 8 nodos con integraciÛn completa (C3D8), con integraciÛn reducida (C3D8R) y con modos incompatibles (C3D8I).
+Asimismo, aunque a priori no parezca la soluci√≥n ideal, resolver con elementos s√≥lidos con igual n√∫mero de elementos en la superficie y un elemento tan solo en el espesor. 
+Se obtendr√° la soluci√≥n con elementos s√≥lidos hexa√©dricos de 8 nodos con integraci√≥n completa (C3D8), con integraci√≥n reducida (C3D8R) y con modos incompatibles (C3D8I).
 \item
-Se desea obtener como resultado del c·lculo los desplazamientos en el borde libre y en el borde superior de la bÛveda, asÌ como en la secciÛn central. 
-Asimismo los esfuerzos de momentos flectores en dicha secciÛn central, y las reacciones en los diafragmas.
+Se desea obtener como resultado del c√°lculo los desplazamientos en el borde libre y en el borde superior de la b√≥veda, as√≠ como en la secci√≥n central. 
+Asimismo los esfuerzos de momentos flectores en dicha secci√≥n central, y las reacciones en los diafragmas.
 \end{enumerate}
 
-\textsc{Nota:} Se trata de un ejemplo cl·sico de prueba para elementos l·mina propuesto por A. C. Scordelis y K. S. Lo, \emph{Computer analysis of cylindrical shells}; J. Amer. Concr. Inst 61, pp. 539-561 (1969).
+\textsc{Nota:} Se trata de un ejemplo cl√°sico de prueba para elementos l√°mina propuesto por A. C. Scordelis y K. S. Lo, \emph{Computer analysis of cylindrical shells}; J. Amer. Concr. Inst 61, pp. 539-561 (1969).
 El resultado de referencia que se puede considerar \emph{``exacto''}, para el desplazamiento vertical en el medio del borde libre, es $0.3024$ m.
 
 
-\section{Modelo con elementos l·mina}
+\section{Modelo con elementos l√°mina}
 \label{sec:guia}
 
-\subsection{MÛdulo \texttt{Part}}
+\subsection{M√≥dulo \texttt{Part}}
 
-En primer lugar, se ejecuta \emph{Abaqus CAE} para crear un modelo nuevo. Para crear el modelo conviene obtener previamente algunos valores numÈricos de coordenadas, que se pueden calcular como se indica en la figura \ref{fig:python}, mediante el intÈrprete de Python en el recuadro inferior de  la ventana.
+En primer lugar, se ejecuta \emph{Abaqus CAE} para crear un modelo nuevo. Para crear el modelo conviene obtener previamente algunos valores num√©ricos de coordenadas, que se pueden calcular como se indica en la figura \ref{fig:python}, mediante el int√©rprete de Python en el recuadro inferior de  la ventana.
 \begin{figure}[h!tbp]
 \begin{center}\includegraphics[scale=0.5]{capturas/01-python-calculos-aux.png}\end{center}
-\caption{C·lculos auxiliares de coordenadas}
+\caption{C√°lculos auxiliares de coordenadas}
 \label{fig:python}
 \end{figure}
 
-Se entra en el mÛdulo \texttt{part}, activando el icono de crear una nueva parte, que se define como 3D, deformable, shell por extrusiÛn (figura \ref{fig:arco}(a)).
+Se entra en el m√≥dulo \texttt{part}, activando el icono de crear una nueva parte, que se define como 3D, deformable, shell por extrusi√≥n (figura \ref{fig:arco}(a)).
 
-El modelo se definir· empleando solo $1/4$ de la bÛveda, haciendo uso de las simetrÌas longitudinal y transversal.
-En primer lugar se define la directriz circular del arco transversal en el plano $xy$, mediante el icono de la utilidad de arco de circunferencia con centro y 2 puntos (figura \ref{fig:arco}(b)). El centro de la circunferencia se sit˙a en $(0,0)$ y a continuaciÛn se dan las coordenadas de los dos extremos del arco, para $\phi=0$ y $\phi=40^{\circ}$. 
-Los puntos a definir son $(0,R)$ y $(R\sin\phi, R\cos\phi)$, que habremos calculado antes numÈricamente, y se escriben en la ventana de coordenadas (figura \ref{fig:arco}(c)).
+El modelo se definir√° empleando solo $1/4$ de la b√≥veda, haciendo uso de las simetr√≠as longitudinal y transversal.
+En primer lugar se define la directriz circular del arco transversal en el plano $xy$, mediante el icono de la utilidad de arco de circunferencia con centro y 2 puntos (figura \ref{fig:arco}(b)). El centro de la circunferencia se sit√∫a en $(0,0)$ y a continuaci√≥n se dan las coordenadas de los dos extremos del arco, para $\phi=0$ y $\phi=40^{\circ}$. 
+Los puntos a definir son $(0,R)$ y $(R\sin\phi, R\cos\phi)$, que habremos calculado antes num√©ricamente, y se escriben en la ventana de coordenadas (figura \ref{fig:arco}(c)).
 Se recuerda que debe emplearse el punto como separador decimal, no la coma.
-Una vez introducido el ˙ltimo punto, en este caso el tercero, pulsar el botÛn con el aspa roja (figura \ref{fig:arco}(c)).
+Una vez introducido el √∫ltimo punto, en este caso el tercero, pulsar el bot√≥n con el aspa roja (figura \ref{fig:arco}(c)).
 
-\emph{OJO}: hay que tener cuidado cuando se est· generando el arco para que lo haga en el sentido deseado de la circunferencia; para ello el cursor del ratÛn deber· estar posicionado en la zona deseada cuando se introducen las coordenadas.
+\emph{OJO}: hay que tener cuidado cuando se est√° generando el arco para que lo haga en el sentido deseado de la circunferencia; para ello el cursor del rat√≥n deber√° estar posicionado en la zona deseada cuando se introducen las coordenadas.
 \begin{figure}[h!tp]
 \centering
 \subfigure[Crear nueva parte]{\includegraphics[scale=0.4]{capturas/02-partx.png}}
@@ -111,37 +111,37 @@ Una vez introducido el ˙ltimo punto, en este caso el tercero, pulsar el botÛn co
 \centering
 \includegraphics[scale=0.4]{capturas/03-partx.png}%
 }}
-\subfigure[IntroducciÛn de coordenadas]{
+\subfigure[Introducci√≥n de coordenadas]{
 %\includegraphics[scale=0.4]{figs/01_end-coordinate-input-x}
 \includegraphics[scale=0.4]{capturas/04-part}
 }
-\caption{CreaciÛn de la geometrÌa del arco}
+\caption{Creaci√≥n de la geometr√≠a del arco}
 \label{fig:arco}
 \end{figure}
 
-Una vez creado el arco se culmina con el botÛn ``Done'' (figura \ref{fig:extru}(a)) y se realiza la extrusiÛn de $L/2=25$ (figura \ref{fig:extru}(b)).
-Por esta operaciÛn obtendremos una l·mina curva desde el plano $z=0$ hasta el plano $z=L/2$.
-Los planos verticales $z=0$ y $x=0$ ser·n los considerados como planos de simetrÌa.
+Una vez creado el arco se culmina con el bot√≥n ``Done'' (figura \ref{fig:extru}(a)) y se realiza la extrusi√≥n de $L/2=25$ (figura \ref{fig:extru}(b)).
+Por esta operaci√≥n obtendremos una l√°mina curva desde el plano $z=0$ hasta el plano $z=L/2$.
+Los planos verticales $z=0$ y $x=0$ ser√°n los considerados como planos de simetr√≠a.
 Se obtiene el resultado mostrado en la figura \ref{fig:extru1}.
 \begin{figure}[h!tp]
 \centering
 \subfigure[seleccionar arco]{\includegraphics[scale=0.5]{capturas/05-part.png}}
-\subfigure[definir extrusiÛn]{\includegraphics[scale=0.5]{capturas/06-partx.png}}
-\caption{BÛveda como extrusiÛn del arco, entre $z=0$ y $z=L/2=25$.}
+\subfigure[definir extrusi√≥n]{\includegraphics[scale=0.5]{capturas/06-partx.png}}
+\caption{B√≥veda como extrusi√≥n del arco, entre $z=0$ y $z=L/2=25$.}
 \label{fig:extru}
 \end{figure}
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.35]{capturas/07-part.png}
-\caption{GeometrÌa generada de la bÛveda cilÌndrica como extrusiÛn del arco, entre $z=0$ (parte posterior de la figura) y $z=L/2=25$ (parte anterior).}
+\caption{Geometr√≠a generada de la b√≥veda cil√≠ndrica como extrusi√≥n del arco, entre $z=0$ (parte posterior de la figura) y $z=L/2=25$ (parte anterior).}
 \label{fig:extru1}
 \end{figure}
 \clearpage
 
-\subsection{MÛdulo \texttt{Property}}
+\subsection{M√≥dulo \texttt{Property}}
 
 Se activa el icono para crear material nuevo (figura \ref{fig:propmat}(a)),
-se selecciona el material el·stico lineal y se introducen las propiedades $E=432\cdot 10^{6}\,\text{Pa}, \nu=0$
+se selecciona el material el√°stico lineal y se introducen las propiedades $E=432\cdot 10^{6}\,\text{Pa}, \nu=0$
 (figura \ref{fig:propmat}(b)).
 \begin{figure}[h!tp]
 \centering
@@ -151,10 +151,10 @@ se selecciona el material el·stico lineal y se introducen las propiedades $E=432
 \label{fig:propmat}
 \end{figure}
 
-A continuaciÛn se crea una \emph{``secciÛn''}, en la que se definen sus propiedades, en este caso el espesor de la l·mina $(0.25\,\text{m})$ y la opciÛn \emph{Before analysis} (figura \ref{fig:section-properties}). 
-Esta opciÛn implica el c·lculo mediante resultantes seccionales (es decir, momentos flectores, cortantes, axiles\ldots), en lugar de integrar las tensiones numÈricamente en una serie de puntos del espesor.
-Esto ˙ltimo que podrÌa ser necesario en un modelo de material no lineal, lo que no es el caso.
-A continuaciÛn se asigna la secciÛn a la parte creada (figura \ref{fig:section-assign}).
+A continuaci√≥n se crea una \emph{``secci√≥n''}, en la que se definen sus propiedades, en este caso el espesor de la l√°mina $(0.25\,\text{m})$ y la opci√≥n \emph{Before analysis} (figura \ref{fig:section-properties}). 
+Esta opci√≥n implica el c√°lculo mediante resultantes seccionales (es decir, momentos flectores, cortantes, axiles\ldots), en lugar de integrar las tensiones num√©ricamente en una serie de puntos del espesor.
+Esto √∫ltimo que podr√≠a ser necesario en un modelo de material no lineal, lo que no es el caso.
+A continuaci√≥n se asigna la secci√≥n a la parte creada (figura \ref{fig:section-assign}).
 \begin{figure}[h!tp]
 \centering
 \subfigure[tipo]{\includegraphics[scale=0.4]{capturas/10-property-x.png}}
@@ -162,13 +162,13 @@ A continuaciÛn se asigna la secciÛn a la parte creada (figura \ref{fig:section-a
 \includegraphics[scale=0.4]{capturas/02a_shell-thickness-type-selection-x}
 %\includegraphics[scale=0.4]{capturas/11-property.png}
 }
-\caption{DefiniciÛn y propiedades de la secciÛn}
+\caption{Definici√≥n y propiedades de la secci√≥n}
 \label{fig:section-properties}
 \end{figure}
 
 \begin{figure}[h!tp]
 \centering
-\subfigure[asignar secciÛn]{\parbox[t]{0.2\textwidth}{%
+\subfigure[asignar secci√≥n]{\parbox[t]{0.2\textwidth}{%
 \centering
 \includegraphics[scale=0.6]{capturas/03a_assign-section-icon}%
 }}
@@ -176,16 +176,16 @@ A continuaciÛn se asigna la secciÛn a la parte creada (figura \ref{fig:section-a
 \includegraphics[scale=0.4]{capturas/04a_select-region-to-assign-section}
 %\includegraphics[scale=0.4]{capturas/12-property.png}
 }
-\subfigure[asignaciÛn]{\includegraphics[scale=0.4]{capturas/13-property.png}}
+\subfigure[asignaci√≥n]{\includegraphics[scale=0.4]{capturas/13-property.png}}
 \subfigure[parte asignada]{\includegraphics[scale=0.3]{capturas/05a_section-assigned}}
-\caption{AsignaciÛn de la secciÛn}
+\caption{Asignaci√≥n de la secci√≥n}
 \label{fig:section-assign}
 \end{figure}
 \clearpage
 
-\subsection{MÛdulo \texttt{Assembly}}
+\subsection{M√≥dulo \texttt{Assembly}}
 
-En este mÛdulo tan solo hay que crear una ``instancia'' a partir de la parte, mediante las opciones por defecto:
+En este m√≥dulo tan solo hay que crear una ``instancia'' a partir de la parte, mediante las opciones por defecto:
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.4]{capturas/14-assembly.png}
@@ -193,31 +193,31 @@ En este mÛdulo tan solo hay que crear una ``instancia'' a partir de la parte, me
 \label{fig:assembly}
 \end{figure}
 
-\subsection{MÛdulo \texttt{Step}}
+\subsection{M√≥dulo \texttt{Step}}
 
-Se crea un ``step'' para el procedimiento de c·lculo ``Static, general''. Se toman las opciones por defecto (figura \ref{fig:step}). 
-Se edita en ``field output'' el conjunto de variables para agregar los esfuerzos seccionales SF (esfuerzos de membrana y de flexiÛn de la l·mina), como se indica en la
+Se crea un ``step'' para el procedimiento de c√°lculo ``Static, general''. Se toman las opciones por defecto (figura \ref{fig:step}). 
+Se edita en ``field output'' el conjunto de variables para agregar los esfuerzos seccionales SF (esfuerzos de membrana y de flexi√≥n de la l√°mina), como se indica en la
 figura \ref{fig:field-output}.
 \begin{figure}[h!tp]
 \centering
-\subfigure[CreaciÛn]{\includegraphics[scale=0.4]{capturas/15-step.png}}
-\subfigure[DefiniciÛn]{\includegraphics[scale=0.4]{capturas/16-step.png}}
+\subfigure[Creaci√≥n]{\includegraphics[scale=0.4]{capturas/15-step.png}}
+\subfigure[Definici√≥n]{\includegraphics[scale=0.4]{capturas/16-step.png}}
 \caption{Crear y definir el ``step''}
 \label{fig:step}
 \end{figure}
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.4]{capturas/16a-step-x.png}
-\caption{ModificaciÛn del ``field output''}
+\caption{Modificaci√≥n del ``field output''}
 \label{fig:field-output}
 \end{figure}
 \clearpage
 
-\subsection{MÛdulo \texttt{Load}}
+\subsection{M√≥dulo \texttt{Load}}
 
 
-En el mÛdulo \texttt{Load} se definir·n tanto las cargas aplicadas como las condiciones de contorno. 
-En primer lugar las cargas, que son ˙nicamente las de peso propio, mediante ``Body force'', a la que se da un valor $q_{y}=-360\,\text{N/m}^{3}$ (figura \ref{fig:pp}).
+En el m√≥dulo \texttt{Load} se definir√°n tanto las cargas aplicadas como las condiciones de contorno. 
+En primer lugar las cargas, que son √∫nicamente las de peso propio, mediante ``Body force'', a la que se da un valor $q_{y}=-360\,\text{N/m}^{3}$ (figura \ref{fig:pp}).
 El resultado final se visualiza en la figura \ref{fig:pp}(d)
 \begin{figure}[h!tp]
 \centering
@@ -225,33 +225,33 @@ El resultado final se visualiza en la figura \ref{fig:pp}(d)
 \subfigure[selecciona el cuerpo]{\includegraphics[scale=0.5]{capturas/18-load.png}}
 \subfigure[valor de la carga]{\includegraphics[scale=0.4]{capturas/19-load-x.png}}
 \subfigure[aspecto final]{\includegraphics[scale=0.3]{capturas/20-bodyforce-shell.png}}
-\caption{DefiniciÛn de las cargas de peso propio}
+\caption{Definici√≥n de las cargas de peso propio}
 \label{fig:pp}
 \end{figure}
 %\clearpage
 
-A continuaciÛn se imponen las condiciones de contorno, primero las que corresponden a los dos planos de simetrÌa.
-Se abre el ``manager'' de condiciones de contorno y se crea la condiciÛn adecuada en el borde $x=0$, condiciones ``Symmetry/Antisymmetry'' del tipo ``XSYMM'', una vez seleccionado con el ratÛn el borde adecuado (ojo, !`hay que tener cuidado para no seleccionar m·s que ese borde!)
+A continuaci√≥n se imponen las condiciones de contorno, primero las que corresponden a los dos planos de simetr√≠a.
+Se abre el ``manager'' de condiciones de contorno y se crea la condici√≥n adecuada en el borde $x=0$, condiciones ``Symmetry/Antisymmetry'' del tipo ``XSYMM'', una vez seleccionado con el rat√≥n el borde adecuado (ojo, !`hay que tener cuidado para no seleccionar m√°s que ese borde!)
 (figura \ref{fig:xsymm}).
 \begin{figure}[h!tp]
 \centering
-\subfigure[Seleccionar borde y condiciÛn XSYMM]{\includegraphics[scale=0.25]{capturas/25-load-x.png}}
-\subfigure[SimetrÌa XSYMM creada]{\includegraphics[scale=0.25]{capturas/26-load-x.png}}
-\caption{Condiciones de contorno de simetrÌa ``XSYMM''}
+\subfigure[Seleccionar borde y condici√≥n XSYMM]{\includegraphics[scale=0.25]{capturas/25-load-x.png}}
+\subfigure[Simetr√≠a XSYMM creada]{\includegraphics[scale=0.25]{capturas/26-load-x.png}}
+\caption{Condiciones de contorno de simetr√≠a ``XSYMM''}
 \label{fig:xsymm}
 \end{figure}
 
-Se establece ahora la simetrÌa por el plano $z=0$, es decir en el borde posterior del modelo, imponiendo las condiciones correspondientes ``ZSYMM''
+Se establece ahora la simetr√≠a por el plano $z=0$, es decir en el borde posterior del modelo, imponiendo las condiciones correspondientes ``ZSYMM''
 (figura \ref{fig:zsymm})
 \begin{figure}[h!tp]
 \centering
-\subfigure[Seleccionar borde y condiciÛn ZSYMM]{\includegraphics[scale=0.25]{capturas/27a-load-x.png}}
-\subfigure[SimetrÌa ZSYMM creada]{\includegraphics[scale=0.25]{capturas/27b-load-x.png}}
-\caption{Condiciones de contorno de simetrÌa ``ZSYMM'' en borde posterior}
+\subfigure[Seleccionar borde y condici√≥n ZSYMM]{\includegraphics[scale=0.25]{capturas/27a-load-x.png}}
+\subfigure[Simetr√≠a ZSYMM creada]{\includegraphics[scale=0.25]{capturas/27b-load-x.png}}
+\caption{Condiciones de contorno de simetr√≠a ``ZSYMM'' en borde posterior}
 \label{fig:zsymm}
 \end{figure}
 
-Por ˙ltimo, en el borde anterior $z=L/2$, se crea una condiciÛn de contorno para imponer el apoyo fijo, mediante condiciones del tipo ``Displacement/rotation'', fij·ndose ˙nicamente los grados de libertad $u_{x}, u_{y}$ (U1 y U2 en Abaqus):
+Por √∫ltimo, en el borde anterior $z=L/2$, se crea una condici√≥n de contorno para imponer el apoyo fijo, mediante condiciones del tipo ``Displacement/rotation'', fij√°ndose √∫nicamente los grados de libertad $u_{x}, u_{y}$ (U1 y U2 en Abaqus):
 (figura~\ref{fig:apoyo}(a)).
 Al final, el conjunto de cargas y condiciones de contorno definidas se muestran en la figura~\ref{fig:apoyo}(b).
 \begin{figure}[h!tp]
@@ -263,19 +263,19 @@ Al final, el conjunto de cargas y condiciones de contorno definidas se muestran 
 \end{figure}
 \clearpage
 
-\subsection{MÛdulo \texttt{Mesh}}
+\subsection{M√≥dulo \texttt{Mesh}}
 
 %Within the \texttt{Mesh} module, start by selecting the part by expanding the tee of the model at the left side, and activating with the right button the icon \emph{``Mesh''}:
-En el mÛdulo mesh hay que comenzar por seleccionar la parte expandiendo el ·rbol del modelo / parte de la izquierda, y activando con el botÛn derecho el icono \emph{``Mesh''}:
+En el m√≥dulo mesh hay que comenzar por seleccionar la parte expandiendo el √°rbol del modelo / parte de la izquierda, y activando con el bot√≥n derecho el icono \emph{``Mesh''}:
 Fig.~\ref{fig:mesh-part}.
 %Open in the top menu bar \emph{Mesh} $\to$ \emph{Controls} and select ``Quad'' and ``Structured'', to generate s structured mesh of quadrilaterals 
-Se abre en el men˙ superior \emph{Mesh} $\to$ \emph{Controls} y se selecciona ``Quad'' y ``Structured'', para generar una malla estructurada de cuadril·teros
+Se abre en el men√∫ superior \emph{Mesh} $\to$ \emph{Controls} y se selecciona ``Quad'' y ``Structured'', para generar una malla estructurada de cuadril√°teros
 (Fig. \ref{fig:mesh-controls}).
 \begin{figure}[h!tp]
 \parbox[t]{0.49\textwidth}{%
 \includegraphics[width=0.5\textwidth]{capturas/29-mesh.png}
 %\caption{Expanded model tree for mesh.}
-\caption{Seleccionar en el men˙ desplegado del modelo para mallar.}
+\caption{Seleccionar en el men√∫ desplegado del modelo para mallar.}
 \label{fig:mesh-part}%
 }\quad
 \parbox[t]{0.49\textwidth}{%
@@ -287,7 +287,7 @@ Se abre en el men˙ superior \emph{Mesh} $\to$ \emph{Controls} y se selecciona ``
 \end{figure}
 
 %Following, open in the top bar the menu \emph{Mesh} $\to$ \emph{Element type} and select the options \emph{``Shell''}, \emph{``Membrane stress: Small''}, \emph{``Reduced integration''} which will correspond to element type S4R5
-A continuaciÛn se abre en el men˙ superior \emph{Mesh} $\to$ \emph{Element type} y se seleccionan las opciones ``Shell'', ``Membrane strain: Small'', lo que dar· lugar al elemento S4R5 
+A continuaci√≥n se abre en el men√∫ superior \emph{Mesh} $\to$ \emph{Element type} y se seleccionan las opciones ``Shell'', ``Membrane strain: Small'', lo que dar√° lugar al elemento S4R5 
 (Fig. \ref{fig:mesh-element}).
 \begin{figure}[h!tp]
 \centering
@@ -297,16 +297,16 @@ A continuaciÛn se abre en el men˙ superior \emph{Mesh} $\to$ \emph{Element type}
 \end{figure}
 
 %Following the seeds for mesh generation are introduced, this will be done individually for each edge
-Ahora se introducen las semillas para la generaciÛn de la malla, se seleccionan los bordes individuales, se activa la opciÛn ``By number'' y se piden 16 elementos por borde. Esta operaciÛn hay que hacerla en dos bordes ortogonales, en los otros dos no es necesario
+Ahora se introducen las semillas para la generaci√≥n de la malla, se seleccionan los bordes individuales, se activa la opci√≥n ``By number'' y se piden 16 elementos por borde. Esta operaci√≥n hay que hacerla en dos bordes ortogonales, en los otros dos no es necesario
 (figura \ref{fig:seeds}).
 \begin{figure}[h!tp]
 \centering
 \subfigure[]{\includegraphics[scale=0.25]{capturas/33a-mesh-x.png}}
 \subfigure[]{\includegraphics[scale=0.25]{capturas/33b-mesh-x.png}}
-\caption{DefiniciÛn de n˙mero de elementos (semillas) en cada borde}
+\caption{Definici√≥n de n√∫mero de elementos (semillas) en cada borde}
 \label{fig:seeds}
 \end{figure}
-Finalmente se malla la parte con el icono de mallado indicado en la figura~\ref{fig:mesh}, obteniÈndose el resultado que se muestra.
+Finalmente se malla la parte con el icono de mallado indicado en la figura~\ref{fig:mesh}, obteni√©ndose el resultado que se muestra.
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.30]{capturas/36-mesh-x.png}
@@ -315,63 +315,63 @@ Finalmente se malla la parte con el icono de mallado indicado en la figura~\ref{
 \end{figure}
 %\clearpage
 
-\subsection{MÛdulo \texttt{Job}}
+\subsection{M√≥dulo \texttt{Job}}
 
 Una vez completado el modelo, se crea un ``Job'' con las opciones por defecto
 (figura \ref{fig:job-create}).
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.5]{capturas/37-job.png}
-\caption{CreaciÛn del ``Job''}
+\caption{Creaci√≥n del ``Job''}
 \label{fig:job-create}
 \end{figure}
 
-Y se envÌa para calcular mediante ``Submit''. El \emph{Status} va cambiando de ``Submitted'' $\to$ ``Running'' $\to$ ``Completed''. 
+Y se env√≠a para calcular mediante ``Submit''. El \emph{Status} va cambiando de ``Submitted'' $\to$ ``Running'' $\to$ ``Completed''. 
 (figura \ref{fig:job-submit})
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.5]{capturas/38-job.png}
-\caption{EnvÌo del ``Job''}
+\caption{Env√≠o del ``Job''}
 \label{fig:job-submit}
 \end{figure}
-Si no hay mensaje de error el problema est· acabado y se pasa al mÛdulo de visualizar los resultados, como se muestra en la
+Si no hay mensaje de error el problema est√° acabado y se pasa al m√≥dulo de visualizar los resultados, como se muestra en la
 figura \ref{fig:job-results}.
-Se observa que la flecha en el punto medio del borde libre es muy prÛxima al valor de referencia  $u_{z}=-0.3024$ m.
+Se observa que la flecha en el punto medio del borde libre es muy pr√≥xima al valor de referencia  $u_{z}=-0.3024$ m.
 % con la malla 16x16 resulta $u_{z}=-0.3043$ m
 
-A menudo resulta conveniente representar el modelo completo con las partes simÈtricas que se han considerado implÌcitamente, representadas como imagen especular. 
-Esto se puede obtener mediante las opciones en el men˙ ``View'' $\to$ ``ODB display options'', escogiendo en la pestaÒa ``Mirror / Patterns'' los \emph{Mirror planes} para $XY$ e $YZ$,
+A menudo resulta conveniente representar el modelo completo con las partes sim√©tricas que se han considerado impl√≠citamente, representadas como imagen especular. 
+Esto se puede obtener mediante las opciones en el men√∫ ``View'' $\to$ ``ODB display options'', escogiendo en la pesta√±a ``Mirror / Patterns'' los \emph{Mirror planes} para $XY$ e $YZ$,
 figura \ref{fig:job-results-symm}.
 \begin{figure}[h!tp]
 \centering
 %\includegraphics[scale=0.35]{capturas/39-results-U2.png}
 \includegraphics[scale=0.45]{capturas2019/a_fig23.png}
-\caption{Resultados del c·lculo -- desplazamiento vertical \texttt{U2}}
+\caption{Resultados del c√°lculo -- desplazamiento vertical \texttt{U2}}
 \label{fig:job-results}
 \end{figure}
 \begin{figure}[h!tp]
 \centering
 %\includegraphics[scale=0.4]{capturas/39a-results.png}
 \includegraphics[scale=0.45]{capturas2019/a_fig24p.png}
-\caption{Vista del modelo completo con las partes simÈtricas representadas}
+\caption{Vista del modelo completo con las partes sim√©tricas representadas}
 \label{fig:job-results-symm}
 \end{figure}
 \clearpage
 
 \section{Modelo con elementos de continuo}
-Se puede crear un modelo similar con elementos de continuo (sÛlidos 3D), siguiendo los siguientes pasos:
+Se puede crear un modelo similar con elementos de continuo (s√≥lidos 3D), siguiendo los siguientes pasos:
 \paragraph{\S1.---}
 Crear una parte del tipo ``Deformable'' / ``Solid'' / ``Extrusion'';
 Definir el contorno de la parte mediante dos arcos de circunferencia, con radios respectivos $R_{i}=R-e/2$ y $R_{e}=R+e/2$, con los mismos $40^{\circ}$ que antes, y unir posteriormente los extremos de dichos arcos para formar un recinto cerrado en el plano $XY$.
-Terminar y extruir dicho perfil la distancia $L/2=25$ para obtener la geometrÌa 3D de la parte, figura \ref{fig:part-solid}.
+Terminar y extruir dicho perfil la distancia $L/2=25$ para obtener la geometr√≠a 3D de la parte, figura \ref{fig:part-solid}.
 \begin{figure}[h!tp]
 \centering
 \includegraphics[scale=0.3]{capturas/40-part-solid.png}
-\caption{GeometrÌa de la parte como continuo 3D}
+\caption{Geometr√≠a de la parte como continuo 3D}
 \label{fig:part-solid}
 \end{figure}
 \paragraph{\S2.---}
-Para definir las condiciones de contorno en los bordes se debe tener cuidado de seleccionar el borde completo, no solo una arista, ver por ejemplo la figura \ref{fig:load-solid} en la que se definen las condiciones de simetrÌa ``ZSYMM''.
+Para definir las condiciones de contorno en los bordes se debe tener cuidado de seleccionar el borde completo, no solo una arista, ver por ejemplo la figura \ref{fig:load-solid} en la que se definen las condiciones de simetr√≠a ``ZSYMM''.
 El resto de condiciones de contorno en el modelo se establecen de forma similar.
 \begin{figure}[h!tp]
 \centering
@@ -380,15 +380,15 @@ El resto de condiciones de contorno en el modelo se establecen de forma similar.
 \label{fig:load-solid}
 \end{figure}
 \paragraph{\S3.---}
-Para la selecciÛn del mallado en ``Mesh/controls'' adoptar una malla estructurada de Hexaedros, 
+Para la selecci√≥n del mallado en ``Mesh/controls'' adoptar una malla estructurada de Hexaedros, 
 figura \ref{fig:mesh-c-solid}.
 \paragraph{\S4.---}
-En el tipo de elemento seleccionamos en primer lugar el hexaedro de modos incompatibles, se trata de un elemento especial que contiene grados de libertad adicionales para el campo de deformaciones, y que da buenos resultados para flexiÛn a pesar de haber un solo elemento en el espesor,
+En el tipo de elemento seleccionamos en primer lugar el hexaedro de modos incompatibles, se trata de un elemento especial que contiene grados de libertad adicionales para el campo de deformaciones, y que da buenos resultados para flexi√≥n a pesar de haber un solo elemento en el espesor,
 figura \ref{fig:mesh-e-solid}.
 \paragraph{\S5.---}
 Para el mallado, basta con seleccionar las semillas que el sistema propone por defecto,
 figura \ref{fig:mesh-s-solid}. 
-El resultado obtenido, con un elemento solo en el espesor de la l·mina, se muestra en la
+El resultado obtenido, con un elemento solo en el espesor de la l√°mina, se muestra en la
 figura \ref{fig:mesh-m-solid}. 
 \begin{figure}[h!tp]
 \parbox[t]{0.39\textwidth}{%
@@ -400,7 +400,7 @@ figura \ref{fig:mesh-m-solid}.
 \parbox[t]{0.59\textwidth}{%
 \includegraphics[width=\linewidth]{capturas/43-mesh-solid.png}
 %\caption{Selection of element type (8 node hexahedron with incompatible modes) within ``Mesh / element type'' for the continuum 3D model}
-\caption{SelecciÛn del tipo de elemento (hexaedro de 8 nodos con modos incompatibles) mediante ``Mesh / element type'' en modelo continuo 3D}
+\caption{Selecci√≥n del tipo de elemento (hexaedro de 8 nodos con modos incompatibles) mediante ``Mesh / element type'' en modelo continuo 3D}
 \label{fig:mesh-e-solid}
 }%
 \end{figure}
@@ -417,63 +417,63 @@ figura \ref{fig:mesh-m-solid}.
 \label{fig:mesh-m-solid}
 \end{figure}
 
-Los resultados obtenidos con los elementos C3D8I son excelentes, muy similares a los de elementos l·mina. La muestra m·s significativa es la flecha en el centro del borde libre, que resulta ser muy cercana al valor de referencia $u_{z}=-0.3024$ m.
+Los resultados obtenidos con los elementos C3D8I son excelentes, muy similares a los de elementos l√°mina. La muestra m√°s significativa es la flecha en el centro del borde libre, que resulta ser muy cercana al valor de referencia $u_{z}=-0.3024$ m.
 % en este modelo con 14x19x1 elementos resulta $u_{z}=-0.3032$ m.
 
-Si se modifica el tipo de elemento por el hexaedro lineal est·ndar con integraciÛn completa (C3D8) los resultados son extremadamente malos, la flecha resulta $u_{z}=-0.072$ m.
-Por ˙ltimo, empleando el elemento hexaedro lineal con integraciÛn reducida (C3D8R) los resultados son tambiÈn muy malos, aunque no tanto como en el caso anterior, la flecha resulta $u_{z}=-0.210\,\text{m}$.
-Esto era de esperar ya que con la formulaciÛn normal de elementos no es posible representar el gradiente de desplazamientos debido a la flexiÛn si se emplea solo un elemento en el espesor. Como mÌnimo serÌan necesario 4 Û 5 elementos en el espesor, pero esto conducirÌa a un modelo con un n˙mero muy elevado de grados de libertad y muy costoso.
-El caso de los elementos con modos incompatibles es una excepciÛn, en su formulaciÛn incluyen campos de deformaciones independientes que se adaptan y recogen correctamente las deformaciones de flexiÛn. 
+Si se modifica el tipo de elemento por el hexaedro lineal est√°ndar con integraci√≥n completa (C3D8) los resultados son extremadamente malos, la flecha resulta $u_{z}=-0.072$ m.
+Por √∫ltimo, empleando el elemento hexaedro lineal con integraci√≥n reducida (C3D8R) los resultados son tambi√©n muy malos, aunque no tanto como en el caso anterior, la flecha resulta $u_{z}=-0.210\,\text{m}$.
+Esto era de esperar ya que con la formulaci√≥n normal de elementos no es posible representar el gradiente de desplazamientos debido a la flexi√≥n si se emplea solo un elemento en el espesor. Como m√≠nimo ser√≠an necesario 4 √≥ 5 elementos en el espesor, pero esto conducir√≠a a un modelo con un n√∫mero muy elevado de grados de libertad y muy costoso.
+El caso de los elementos con modos incompatibles es una excepci√≥n, en su formulaci√≥n incluyen campos de deformaciones independientes que se adaptan y recogen correctamente las deformaciones de flexi√≥n. 
 
 \clearpage
 
-\section{GeneraciÛn de modelos con scripts \texttt{Python}}
+\section{Generaci√≥n de modelos con scripts \texttt{Python}}
 
-\subsection{Modelo con elementos l·mina}
+\subsection{Modelo con elementos l√°mina}
 
 Se incluyen dos modelos preparados directamente en python que reproducen los modelos realizados con ayuda de abaqus cae.
 En lo que sigue se explican someramente las distintas partes de cada script.
 
-El primer modelo es el preparado para elementos l·mina.
+El primer modelo es el preparado para elementos l√°mina.
 Se puede descargar directamente en \href{http://stokes.mecanica.upm.es/MCIC_open/practicas/scripts-python/prac3_lamina1.py}{\ttfamily prac3\_lamina1.py}, una vez descargado se puede ejecutar desde abaqus directamente.
 
-En este modelo las fases seguidas en la programaciÛn son las siguientes, describiÈndose los puntos en el croquis de la figura \ref{fig:lamina1}.
+En este modelo las fases seguidas en la programaci√≥n son las siguientes, describi√©ndose los puntos en el croquis de la figura \ref{fig:lamina1}.
 \begin{figure}
 \centering
 %    \includegraphics[width=1.0\textwidth]{imag/im5}
 	\includegraphics[scale=0.25]{figs/prac3_lamina1_fig.png}
 %  \caption{Nodes and selection}
-	\caption{Croquis para generaciÛn de modelo con \texttt{Python} y elementos l·mina}
+	\caption{Croquis para generaci√≥n de modelo con \texttt{Python} y elementos l√°mina}
 	\label{fig:lamina1}
 \end{figure}
 
 \begin{enumerate}
 \item
-Primeramente se define el perfil de la l·mina. Esto se hace ayud·ndose de los puntos que definen el cuarto de l·mina que se va a modelar.
-Estos son, el punto $O$ centro de la circunferencia que define la secciÛn transversal de la l·mina, $A$ que es el punto de m·xima altura de la l·mina y que 
-pertenece al plano de simetrÌa longitudinal de la misma y el punto $B$ que pertenece al borde libre. Adicionalmente se define el punto $M$ que se utilizar· 
-m·s adelante.
-TambiÈn se definen como variables de python el radio de curvatura de la l·mina y el semi·ngulo (R y ANG).
+Primeramente se define el perfil de la l√°mina. Esto se hace ayud√°ndose de los puntos que definen el cuarto de l√°mina que se va a modelar.
+Estos son, el punto $O$ centro de la circunferencia que define la secci√≥n transversal de la l√°mina, $A$ que es el punto de m√°xima altura de la l√°mina y que 
+pertenece al plano de simetr√≠a longitudinal de la misma y el punto $B$ que pertenece al borde libre. Adicionalmente se define el punto $M$ que se utilizar√° 
+m√°s adelante.
+Tambi√©n se definen como variables de python el radio de curvatura de la l√°mina y el semi√°ngulo (R y ANG).
 \item
-Con estos par·metros se definen los puntos en un sistema de coordenadas de dos dimensiones, se crea el arco de circunferencia que
-define el perfil de la l·mina y se realiza la extrusiÛn que genera una parte (p).
+Con estos par√°metros se definen los puntos en un sistema de coordenadas de dos dimensiones, se crea el arco de circunferencia que
+define el perfil de la l√°mina y se realiza la extrusi√≥n que genera una parte (p).
 \item
-A continuaciÛn se definen el material, la secciÛn (en terminologÌa de abaqus) y la asignaciÛn de secciÛn a parte.
-ObsÈrvese que para hacer la asignaciÛn se usan las  'faces' de la parte de abaqus que representan la superficie ya generada.
+A continuaci√≥n se definen el material, la secci√≥n (en terminolog√≠a de abaqus) y la asignaci√≥n de secci√≥n a parte.
+Obs√©rvese que para hacer la asignaci√≥n se usan las  'faces' de la parte de abaqus que representan la superficie ya generada.
 \item
-Una vez definido el material y asignado a la parte se genera la instancia a calcular que se denominar· 'laminainstancia' y que se almacena en la 
-variable 'myAssembly'. AquÌ al generar la instancia se define con malla dependiente de la parte (dependent=ON).
+Una vez definido el material y asignado a la parte se genera la instancia a calcular que se denominar√° 'laminainstancia' y que se almacena en la 
+variable 'myAssembly'. Aqu√≠ al generar la instancia se define con malla dependiente de la parte (dependent=ON).
 \item
 Posteriormente se definen las cargas y condiciones de contorno.
-Para seleccionar los elementos geomÈtricos en los que definir las condiciones de contorno nos apoyamos en los puntos medios de los bordes.
-Con estos puntos medios buscamos el elemento geomÈtrico al que aplica la condiciÛn de contorno. En este caso son elementos geomÈtricos del tipo 'edges'. Para
-esta b˙squeda utilizamos puntos definidos en un espacio de tres dimensiones por lo que del punto $M$ definido inicialmente se usan sus dos coordenadas suplementadas
+Para seleccionar los elementos geom√©tricos en los que definir las condiciones de contorno nos apoyamos en los puntos medios de los bordes.
+Con estos puntos medios buscamos el elemento geom√©trico al que aplica la condici√≥n de contorno. En este caso son elementos geom√©tricos del tipo 'edges'. Para
+esta b√∫squeda utilizamos puntos definidos en un espacio de tres dimensiones por lo que del punto $M$ definido inicialmente se usan sus dos coordenadas suplementadas
 por la coordenada $z$ lo que da lugar al punto $OM3$.
 Para definir el peso propio hay que seleccionar toda la instancia lo que se hace a  mediante un `BoundingBox` de `faces`.
 \item
-Para definir la malla se generan las divisiones de elementos en dos bordes de la l·mina no paralelos, se define el tipo de elemento y se genera la malla.
+Para definir la malla se generan las divisiones de elementos en dos bordes de la l√°mina no paralelos, se define el tipo de elemento y se genera la malla.
 \item
-Por ˙ltimo se ejecuta el modelo y se almacena la definiciÛn del mismo.
+Por √∫ltimo se ejecuta el modelo y se almacena la definici√≥n del mismo.
 \end{enumerate}
 
 \subsection{Modelo con elementos de continuo}
@@ -481,33 +481,33 @@ Por ˙ltimo se ejecuta el modelo y se almacena la definiciÛn del mismo.
 El script del modelo con elementos de continuo se puede descargar en \href{http://stokes.mecanica.upm.es/MCIC_open/practicas/scripts-python/prac3_lamina2.py}{\ttfamily prac3\_lamina2.py}. 
 Una vez descargado se puede ejecutar desde abaqus directamente.
 
-La programaciÛn del script sigue las mismas pautas, con las salvedades correspondientes. 
+La programaci√≥n del script sigue las mismas pautas, con las salvedades correspondientes. 
 Se describen los puntos en el croquis de la figura \ref{fig:lamina2}.
 \begin{figure}
 \centering
 %    \includegraphics[width=1.0\textwidth]{imag/im5}
 	\includegraphics[scale=0.25]{figs/prac3_lamina2_fig.png}
 %  \caption{Nodes and selection}
-	\caption{Croquis para generaciÛn de modelo con \texttt{Python} y elementos de continuo}
+	\caption{Croquis para generaci√≥n de modelo con \texttt{Python} y elementos de continuo}
 	\label{fig:lamina2}
 \end{figure}
 \begin{enumerate}
 \item
-Ahora se genera una secciÛn que en vez de estar definida por un 
+Ahora se genera una secci√≥n que en vez de estar definida por un 
 tramo de curva abierta se define con una curva cerrada.
-Los puntos se definen con el siguiente criterio, los puntos pertenecientes a la parte superior de la l·mina llevan el sufijo $T$ y los correspondientes
+Los puntos se definen con el siguiente criterio, los puntos pertenecientes a la parte superior de la l√°mina llevan el sufijo $T$ y los correspondientes
 a la parte inferior el sufijo $B$.
 \item
-La parte se crea mediante una extrusiÛn sÛlida, BaseSolidExtrude, como contraposiciÛn a la l·mina que era  BaseShellExtrude.
+La parte se crea mediante una extrusi√≥n s√≥lida, BaseSolidExtrude, como contraposici√≥n a la l√°mina que era  BaseShellExtrude.
 \item
-La definiciÛn del material es similar pero algo m·s sencilla que en la l·mina.
+La definici√≥n del material es similar pero algo m√°s sencilla que en la l√°mina.
 \item
-La definiciÛn de las cargas se hace utilizando igual que antes puntos medios pero que en este caso en vez de pertenecer a un borde (edge) pertenecen a una 
-superficie (face). El procedimiento es el mismo que antes, se define el punto medio de la superficie a la que hay que asociar la condiciÛn de contorno y se 
+La definici√≥n de las cargas se hace utilizando igual que antes puntos medios pero que en este caso en vez de pertenecer a un borde (edge) pertenecen a una 
+superficie (face). El procedimiento es el mismo que antes, se define el punto medio de la superficie a la que hay que asociar la condici√≥n de contorno y se 
 busca la 'face' de la instancia mediante ' findAt'.
-Para el peso propio se selecciona toda la instancia y para la condiciÛn de apoyo se selecciona sÛlo un borde, en este caso el inferior.
+Para el peso propio se selecciona toda la instancia y para la condici√≥n de apoyo se selecciona s√≥lo un borde, en este caso el inferior.
 \item
-La generaciÛn de malla en este caso es con una semilla para todo el modelo.
+La generaci√≥n de malla en este caso es con una semilla para todo el modelo.
 \item
 El resto del script es similar.
 \end{enumerate}
@@ -530,30 +530,30 @@ El resto del script es similar.
 \label{fig2a}
 \end{figure}
 
-Se procede utilizando el men˙ de tools (dentro de resultados) y dentro de tools el submen˙ query (Fig.~\ref{fig2a}(a)). Al optar por este submen˙ 
-se abre un recuadro en el que se debe elegir la opciÛn ``Probe values'' (\emph{sondear valores}), 
+Se procede utilizando el men√∫ de tools (dentro de resultados) y dentro de tools el submen√∫ query (Fig.~\ref{fig2a}(a)). Al optar por este submen√∫ 
+se abre un recuadro en el que se debe elegir la opci√≥n ``Probe values'' (\emph{sondear valores}), 
 Fig.~\ref{fig2a}(b).
-Aparece una nueva ventana en la que se debe elegir ``Probe: Nodes'' y ``Components: Selected'' (Fig.~\ref{fig5}). En la cabecera de esta ventana aparece el campo que se est· visualizando que ser· el que se sondee: \emph{Field output variable for Probe:}
+Aparece una nueva ventana en la que se debe elegir ``Probe: Nodes'' y ``Components: Selected'' (Fig.~\ref{fig5}). En la cabecera de esta ventana aparece el campo que se est√° visualizando que ser√° el que se sondee: \emph{Field output variable for Probe:}
 U, U2, que se puede seleccionar mediante el icono al comienzo de este campo, Fig.~\ref{fig7}.
 \begin{figure}[h!tp]
 \centering
 %    \includegraphics[width=1.0\textwidth]{imag/im5}
 	\includegraphics[scale=0.45]{capturas2019/a_fig32.png}
 %  \caption{Nodes and selection}
-	\caption{Nodos y selecciÛn}
+	\caption{Nodos y selecci√≥n}
 	\label{fig5}
 \end{figure}
 \begin{figure}[h!tp]
 \centering
 %	\includegraphics[width=0.75\textwidth]{imag/im7}
 	\includegraphics[scale=0.45]{capturas2019/a_fig33.png}
-	\caption{SelecciÛn de variable a sondear (\emph{probe}): U, U2}
+	\caption{Selecci√≥n de variable a sondear (\emph{probe}): U, U2}
 	\label{fig7}
 \end{figure}
 
-Una vez seleccionados esos campos se debe marcar con el ratÛn en la ventana de representaciÛn del modelo el o los nodos en los que estamos interesados.
-Al hacer clic con el ratÛn sobre el nodo en cuestiÛn se ver· el resultado en la ventana de \emph{Probe Values} que resulta ser $u_{z}=-0.3043$ m, lo que coincide con el valor esperado (Fig.~\ref{fig8}). 
-%(Nota: esta malla de $7\times 10$ es m·s grosera que la pedida en el ejercicio ($16\times 16$, por lo que el valor resulta ligeramente distinto, algo menos preciso.)
+Una vez seleccionados esos campos se debe marcar con el rat√≥n en la ventana de representaci√≥n del modelo el o los nodos en los que estamos interesados.
+Al hacer clic con el rat√≥n sobre el nodo en cuesti√≥n se ver√° el resultado en la ventana de \emph{Probe Values} que resulta ser $u_{z}=-0.3043$ m, lo que coincide con el valor esperado (Fig.~\ref{fig8}). 
+%(Nota: esta malla de $7\times 10$ es m√°s grosera que la pedida en el ejercicio ($16\times 16$, por lo que el valor resulta ligeramente distinto, algo menos preciso.)
 \begin{figure}[h!tp]
 \centering
 %	\includegraphics[width=0.95\textwidth]{fm/Fig-1_Despla_Vertical.png}
@@ -565,29 +565,29 @@ Al hacer clic con el ratÛn sobre el nodo en cuestiÛn se ver· el resultado en la 
 
 \clearpage
 
-\subsection{ReacciÛn en un borde}
+\subsection{Reacci√≥n en un borde}
 
-Es tambiÈn interesante obtener las reacciones en los apoyos o en los bordes que representan las condiciones de simetrÌa.
-Para ello se procede como en la pr·ctica anterior. Se define una curva sobre el modelo, en este caso se tratar· del borde en el que estemos interesados.
-En la definiciÛn de la curva, al tratarse de bordes curvos (en general) se deber·n incluir todos los nodos que la forman. 
-Una vez definida la curva se define una tabla de datos mediante la asociaciÛn de un valor escalar a la curva predefinida.
-En este caso particular se procederÌa del siguiente modo:
+Es tambi√©n interesante obtener las reacciones en los apoyos o en los bordes que representan las condiciones de simetr√≠a.
+Para ello se procede como en la pr√°ctica anterior. Se define una curva sobre el modelo, en este caso se tratar√° del borde en el que estemos interesados.
+En la definici√≥n de la curva, al tratarse de bordes curvos (en general) se deber√°n incluir todos los nodos que la forman. 
+Una vez definida la curva se define una tabla de datos mediante la asociaci√≥n de un valor escalar a la curva predefinida.
+En este caso particular se proceder√≠a del siguiente modo:
 \begin{enumerate}
 \item Se define la curva (\emph{path}) (Fig.~\ref{fig11}). 
-Ello se hace a partir del ·rbol de resultados que figura en la 
+Ello se hace a partir del √°rbol de resultados que figura en la 
 ventana izquierda. 
-Se selecciona ``\emph{Create}'' haciendo clic con el botÛn derecho del ratÛn sobre el item ``\emph{Paths}''.
+Se selecciona ``\emph{Create}'' haciendo clic con el bot√≥n derecho del rat√≥n sobre el item ``\emph{Paths}''.
 \begin{figure}[h!tp]
 \centering
 %	\includegraphics[width=0.8\textwidth]{imag/im11}
 	\includegraphics[scale=0.45]{capturas2019/a_fig35.png}
 %	\includegraphics[scale=0.45]{capturas2019/a_fig35p_fig36a.png}
-\caption{CreaciÛn de una curva (\emph{path})}
+\caption{Creaci√≥n de una curva (\emph{path})}
 \label{fig11}
 \end{figure}
 
 En la ventana siguiente (Fig.~\ref{fig13}(a)) se selecciona ``Node list'', se da un nombre a la curva y se hace clic sobre ``continue''.
-En la siguiente ventana (Fig.~\ref{fig13}(b)) se indica ``Add After'' para la creaciÛn del ``Node List''.
+En la siguiente ventana (Fig.~\ref{fig13}(b)) se indica ``Add After'' para la creaci√≥n del ``Node List''.
 \begin{figure}[!htp]
 \centering
 %    \subfigure[Tipo de curva]{\includegraphics[scale=0.55]{imag/im13}}
@@ -595,34 +595,34 @@ En la siguiente ventana (Fig.~\ref{fig13}(b)) se indica ``Add After'' para la cr
 	\subfigure[Tipo de curva]{\includegraphics[scale=0.45]{capturas2019/a_fig36a.png}}
 	\quad
 	\subfigure[Node List]{\includegraphics[scale=0.45]{capturas2019/a_fig36b.png}}
-\caption{Tipo de curva y lista de nodos para definiciÛn del \emph{Path}}
+\caption{Tipo de curva y lista de nodos para definici√≥n del \emph{Path}}
 \label{fig13}
 \end{figure}
 
-Se van aÒadiendo los nodos hasta que una vez aÒadidos todos se hace clic sobre ``Done'', como se muestra en la figura~\ref{fig19}.
-Se confirma y ya est· creada la curva, como se puede observar en el ·rbol que representa los resultados.
+Se van a√±adiendo los nodos hasta que una vez a√±adidos todos se hace clic sobre ``Done'', como se muestra en la figura~\ref{fig19}.
+Se confirma y ya est√° creada la curva, como se puede observar en el √°rbol que representa los resultados.
 \begin{figure}[h!tp]
 \centering
 %	\includegraphics[width=0.9\textwidth]{fm/Fig-2_Reacc_Vertical.png}
 	\includegraphics[scale=0.45]{capturas2019/a_fig37-2.png}
-\caption{\emph{Path} para la ReacciÛn Vertical}
+\caption{\emph{Path} para la Reacci√≥n Vertical}
 \label{fig19}
 \end{figure}
 
 \clearpage
 
 \item El siguiente paso es asociar un resultado a la curva, para lo cual se crea una tabla, de modo similar 
-a la creaciÛn de la curva. Se hace clic sobre el apartado ``XYData'' del ·rbol (Fig.~\ref{fig21}).
+a la creaci√≥n de la curva. Se hace clic sobre el apartado ``XYData'' del √°rbol (Fig.~\ref{fig21}).
 \begin{figure}[h!tp]
 \centering
 %    \includegraphics[width=0.9\textwidth]{imag/im21}
 	\includegraphics[scale=0.45]{capturas2019/a_fig38.png}
-\caption{CreaciÛn de una tabla de datos}
+\caption{Creaci√≥n de una tabla de datos}
 \label{fig21}
 \end{figure}
 
-En la siguiente ventana (fig.~\ref{fig22}(b)) se elige la opciÛn ``Path'' y se contin˙a.
-DespuÈs (Fig.~\ref{fig22}(b)) se asocia a la curva indicada en el men˙ desplegable de ``Path'' el valor del escalar que nos interese. 
+En la siguiente ventana (fig.~\ref{fig22}(b)) se elige la opci√≥n ``Path'' y se contin√∫a.
+Despu√©s (Fig.~\ref{fig22}(b)) se asocia a la curva indicada en el men√∫ desplegable de ``Path'' el valor del escalar que nos interese. 
 \begin{figure}[h!tp]
 \centering
 %    \subfigure[\emph{Source}]{\includegraphics[scale=0.45]{imag/im22}}
@@ -630,12 +630,12 @@ DespuÈs (Fig.~\ref{fig22}(b)) se asocia a la curva indicada en el men˙ desplegab
 	\subfigure[\emph{Source}]{\includegraphics[scale=0.45]{capturas2019/a_fig39a.png}}
 	\quad
 	\subfigure[\emph{Data Extraction}]{\includegraphics[scale=0.45]{capturas2019/a_fig39pb.png}}
-\caption{DefiniciÛn de la trayectoria (\emph{path}) para una curva de resultados}
+\caption{Definici√≥n de la trayectoria (\emph{path}) para una curva de resultados}
 \label{fig22}
 \end{figure}
-Para ``X Values'' dejamos la opciÛn de \emph{``True distance''} y en ``Data Extraction'', aparte de elegir la curva, marcamos \emph{``Undeformed''} e \emph{``Include intersections''}. 
-Para el valor de la ordenada de la curva se hace clic sobre el botÛn ``Field Output'' con lo que tendremos acceso a la ventana 
-de la fig.~\ref{fig26}(a), en la que elegiremos RF, RF2 y haremos clic sobre ``OK''. Ya sÛlo queda marcar ``Plot''
+Para ``X Values'' dejamos la opci√≥n de \emph{``True distance''} y en ``Data Extraction'', aparte de elegir la curva, marcamos \emph{``Undeformed''} e \emph{``Include intersections''}. 
+Para el valor de la ordenada de la curva se hace clic sobre el bot√≥n ``Field Output'' con lo que tendremos acceso a la ventana 
+de la fig.~\ref{fig26}(a), en la que elegiremos RF, RF2 y haremos clic sobre ``OK''. Ya s√≥lo queda marcar ``Plot''
 en la ventana de Data Extraction (Fig.~\ref{fig26}(b)) con lo que obtendremos la curva de la figura fig.~\ref{fig28}.
 \begin{figure}[h!tp]
 \centering
@@ -644,7 +644,7 @@ en la ventana de Data Extraction (Fig.~\ref{fig26}(b)) con lo que obtendremos la
 	\subfigure[Componente RF2]{\includegraphics[scale=0.45]{capturas2019/a_fig40pa.png}}
 	\quad
 	\subfigure[\emph{Data Extraction}: opciones]{\includegraphics[scale=0.45]{capturas2019/a_fig40pb.png}}
-\caption{ExtracciÛn de datos a una tabla}
+\caption{Extracci√≥n de datos a una tabla}
 \label{fig26}
 \end{figure}
 \begin{figure}[!htp]
@@ -653,29 +653,29 @@ en la ventana de Data Extraction (Fig.~\ref{fig26}(b)) con lo que obtendremos la
 \includegraphics[scale=0.35]{capturas2019/a_fig41p2a.png}
 \quad
 \includegraphics[scale=0.35]{capturas2019/a_fig41p2.png}
-\caption{ReacciÛn vertical por unidad de longitud en apoyo}
+\caption{Reacci√≥n vertical por unidad de longitud en apoyo}
   \label{fig28}
 \end{figure}
 \end{enumerate}
-Adem·s, se puede obtener la integral de la reacciÛn por unidad de longitud, mediante la selecciÛn en el ·rbol del modelo
+Adem√°s, se puede obtener la integral de la reacci√≥n por unidad de longitud, mediante la selecci√≥n en el √°rbol del modelo
 \emph{XY Data} $\to$ \emph{Create} $\to$ \emph{Operate on XY data} $\to$ \emph{integrate}
 obteniendo el resultado de la figura~\ref{fig:int-reac-vert}.
 \begin{figure}[!htbp]
 \centering
 %\includegraphics[width=0.9\textwidth]{fm/Fig-4_Integral_Reacc_Vertical}
 \includegraphics[scale=0.45]{capturas2019/a_fig42p.png}
-\caption{Integral de la reacciÛn vertical (\emph{Moment} representa la integral)}
+\caption{Integral de la reacci√≥n vertical (\emph{Moment} representa la integral)}
 \label{fig:int-reac-vert}
 \end{figure}
 %\clearpage
 
-Es interesante hacer como comprobaciÛn los c·lculos directos de la reacciÛn total, figura~\ref{fig:calc-anal-reac}, que comprobamos que difiere ligeramente (5\%) del valor integrado en el \emph{path}.
-La razÛn es que la opciÛn \emph{path} no es la forma m·s exacta de sumar reacciones ya que hay una interpolaciÛn de por medio. 
-La forma m·s precisa serÌa sumar las reacciones individuales de cada uno de los nodos, como se aprecia en la figura~\ref{fig:suma-reac-nod}
+Es interesante hacer como comprobaci√≥n los c√°lculos directos de la reacci√≥n total, figura~\ref{fig:calc-anal-reac}, que comprobamos que difiere ligeramente (5\%) del valor integrado en el \emph{path}.
+La raz√≥n es que la opci√≥n \emph{path} no es la forma m√°s exacta de sumar reacciones ya que hay una interpolaci√≥n de por medio. 
+La forma m√°s precisa ser√≠a sumar las reacciones individuales de cada uno de los nodos, como se aprecia en la figura~\ref{fig:suma-reac-nod}
 \begin{figure}[!htbp]
 \centering
 \includegraphics{fm/Fig-5_Analitico_Reacc_Vertical}
-\caption{C·lculo analÌtico de la reacciÛn}
+\caption{C√°lculo anal√≠tico de la reacci√≥n}
 \label{fig:calc-anal-reac}
 \end{figure}
 \begin{figure}[!htbp]
@@ -686,30 +686,30 @@ La forma m·s precisa serÌa sumar las reacciones individuales de cada uno de los 
 \label{fig:suma-reac-nod}
 \end{figure}
 
-Otra forma de obtener la suma de reacciones sin tener que \emph{sumarlas manualmente} es establecer una restricciÛn de todos los nodos  del borde de interÈs a un ˙nico nodo mediante un \emph{MPC} o un \emph{kinematic coupling} y recuperar la reacciÛn en dicho nodo.
-Para ello al borde anterior se acopla una restricciÛn cinem·tica a un ˙nico nodo que puede ser real o ficticio y al que se asigna la condiciÛn de contorno fija. 
-De este modo la reacciÛn obtenida es la correspondiente a la resultante total de ese borde. 
-En este caso el nodo maestro es uno de los vÈrtices, figura~\ref{fig:asig-kine-coup}.
+Otra forma de obtener la suma de reacciones sin tener que \emph{sumarlas manualmente} es establecer una restricci√≥n de todos los nodos  del borde de inter√©s a un √∫nico nodo mediante un \emph{MPC} o un \emph{kinematic coupling} y recuperar la reacci√≥n en dicho nodo.
+Para ello al borde anterior se acopla una restricci√≥n cinem√°tica a un √∫nico nodo que puede ser real o ficticio y al que se asigna la condici√≥n de contorno fija. 
+De este modo la reacci√≥n obtenida es la correspondiente a la resultante total de ese borde. 
+En este caso el nodo maestro es uno de los v√©rtices, figura~\ref{fig:asig-kine-coup}.
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.9\textwidth]{fm/Fig-7_Kinematic_constraint.png}
-\caption{AsignaciÛn de \emph{kinematic coupling} MPC}
+\caption{Asignaci√≥n de \emph{kinematic coupling} MPC}
 \label{fig:asig-kine-coup}
 \end{figure}
 
-Se asigna la condiciÛn de contorno al nodo maestro, figura~\ref{fig:asig-cond-cont}.
+Se asigna la condici√≥n de contorno al nodo maestro, figura~\ref{fig:asig-cond-cont}.
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.9\textwidth]{fm/Fig-8_BC_Nodo_Maestro.png}
-\caption{AsignaciÛn condiciÛn de contorno}
+\caption{Asignaci√≥n condici√≥n de contorno}
 \label{fig:asig-cond-cont}
 \end{figure}
 
-Si se hace asÌ el resultado es completamente exacto como se puede apreciar en la figura~\ref{fig:calc-reak-kinem}.
+Si se hace as√≠ el resultado es completamente exacto como se puede apreciar en la figura~\ref{fig:calc-reak-kinem}.
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.9\textwidth]{fm/Fig-9_Kinematic_Reacc_Vertical.png}
-\caption{C·lculo de la reacciÛn mediante \emph{kinematic coupling}}
+\caption{C√°lculo de la reacci√≥n mediante \emph{kinematic coupling}}
 \label{fig:calc-reak-kinem}
 \end{figure}
 %\clearpage
@@ -718,19 +718,19 @@ Si se hace asÌ el resultado es completamente exacto como se puede apreciar en la
 
 \clearpage
 \section{Ejercicio propuesto}
-El puente de la Fig.~\ref{figuprop1}, de ancho 3,5 m, se encuentra empotrado en pilas y estribos en las ·reas verticales de contacto con el terreno circundante. El mÛdulo de Young del material es de 30.0 GPa, el coeficiente de Poisson es $\nu=0.2$ y el peso especÌfico es $\gamma=24000 \mathrm{~N} / \mathrm{m}^{3}$. Las acciones a considerar ser·n el peso propio y el efecto de un sismo que se supondr· equivalente a una fuerza volumÈtrica, distribuida transversalmente al puente, de valor $1000 \mathrm{~N} / \mathrm{m}^{3}$, actuando en el sentido AB (Fig.~\ref{figuprop1}).
+El puente de la Fig.~\ref{figuprop1}, de ancho 3,5 m, se encuentra empotrado en pilas y estribos en las √°reas verticales de contacto con el terreno circundante. El m√≥dulo de Young del material es de 30.0 GPa, el coeficiente de Poisson es $\nu=0.2$ y el peso espec√≠fico es $\gamma=24000 \mathrm{~N} / \mathrm{m}^{3}$. Las acciones a considerar ser√°n el peso propio y el efecto de un sismo que se supondr√° equivalente a una fuerza volum√©trica, distribuida transversalmente al puente, de valor $1000 \mathrm{~N} / \mathrm{m}^{3}$, actuando en el sentido AB (Fig.~\ref{figuprop1}).
 
-Se desea estudiar el comportamiento estructural de este puente ante las dos acciones mencionadas. Teniendo en cuenta las simetrÌas del problema, se preparar· un modelo con Abaqus de la mitad del puente tal y como se indica en la Fig.~\ref{figuprop1}, donde se detalla la geometrÌa de la estructura.
+Se desea estudiar el comportamiento estructural de este puente ante las dos acciones mencionadas. Teniendo en cuenta las simetr√≠as del problema, se preparar√° un modelo con Abaqus de la mitad del puente tal y como se indica en la Fig.~\ref{figuprop1}, donde se detalla la geometr√≠a de la estructura.
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=0.55\textwidth]{./figs/prop}
   \end{center}
-  \caption{DescripciÛn del ejercicio propuesto}
+  \caption{Descripci√≥n del ejercicio propuesto}
   \label{figuprop1}
 \end{figure}
 
-Responde las preguntas que vienen a continuaciÛn teniendo en cuenta que el elemento a emplear ser· el hexaedro de 8 nodos con integraciÛn reducida C3D8R y el tamaÒo del elemento a utilizar en el mallador de Abaqus ser· $0.55 \mathrm{~m}$.
+Responde las preguntas que vienen a continuaci√≥n teniendo en cuenta que el elemento a emplear ser√° el hexaedro de 8 nodos con integraci√≥n reducida C3D8R y el tama√±o del elemento a utilizar en el mallador de Abaqus ser√° $0.55 \mathrm{~m}$.
 
 \begin{enumerate}
 \item Flecha vertical (valor absoluto) en el punto B:
